@@ -1,17 +1,15 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleUI.h"
+#include "SDL\include\SDL_opengl.h"
+#include <gl/GL.h>
+#include <gl/GLU.h>
+
+#pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
+#pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
 ModuleUI::ModuleUI(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-
-   
-
-
-    
-
-
-
 }
 
 // Destructor
@@ -31,7 +29,6 @@ bool ModuleUI::Init()
 
     // Application main loop
 
-
     ImGui_ImplOpenGL2_Init();
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 
@@ -44,10 +41,29 @@ bool ModuleUI::Init()
 
 update_status ModuleUI::PreUpdate(float dt)
 {
-    //ImGui_ImplOpenGL2_NewFrame();
-    //ImGui_ImplSDL2_NewFrame();
-    //ImGui::NewFrame();
-    //ImGui::EndFrame();
+	ImGui_ImplOpenGL2_NewFrame();
+	ImGui_ImplSDL2_NewFrame();
+	ImGui::NewFrame();
+
+	ImGui::Begin("Pana");
+	if (ImGui::MenuItem("Quit")) 
+	{ 
+		ImGui::End();
+		return UPDATE_STOP; 
+	}
+	ImGui::End();
+
+
+	ImGui::BeginMainMenuBar();
+	if (ImGui::MenuItem("Quit")) 
+	{ 
+		ImGui::EndMainMenuBar();
+		return UPDATE_STOP; 
+	}
+	ImGui::EndMainMenuBar();
+
+	ImGui::ShowDemoWindow();
+	ImGui::Render();
 
 	return UPDATE_CONTINUE;
 }
@@ -60,6 +76,7 @@ update_status ModuleUI::Update(float dt)
 
 update_status ModuleUI::PostUpdate(float dt)
 {
+	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
 	return UPDATE_CONTINUE;
 }

@@ -117,20 +117,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 	
-	ImGui_ImplOpenGL2_NewFrame();
-	ImGui_ImplSDL2_NewFrame();
-	ImGui::NewFrame();
-
-	ImGui::Begin("Pana");
-		if (ImGui::MenuItem("Quit")) { return UPDATE_STOP; }
-	ImGui::End();
-
-	ImGui::BeginMainMenuBar();
-	if (ImGui::MenuItem("Quit")) { return UPDATE_STOP; }
-	ImGui::EndMainMenuBar();
-
-	ImGui::ShowDemoWindow();
-	ImGui::Render();
 
 	return UPDATE_CONTINUE;
 }
@@ -138,7 +124,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData()); 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
