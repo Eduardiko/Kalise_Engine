@@ -51,23 +51,7 @@ update_status ModuleUI::Update(float dt)
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 
-	/*ImGui::Begin("Pana");
-	if (ImGui::MenuItem("Quit")) 
-	{ 
-		ImGui::End();
-		return UPDATE_STOP; 
-	}
-	ImGui::End();
-
-
-	ImGui::BeginMainMenuBar();
-	if (ImGui::MenuItem("Quit")) 
-	{ 
-		ImGui::EndMainMenuBar();
-		return UPDATE_STOP; 
-	}
-	ImGui::EndMainMenuBar();*/
-
+	
 	ImGui::BeginMainMenuBar();
 		if (ImGui::BeginMenu("Help"))
 		{
