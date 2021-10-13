@@ -28,6 +28,8 @@ public:
 
 	void SetTitle(const char* title);
 
+	bool showcase = true;
+
 public:
 };
 

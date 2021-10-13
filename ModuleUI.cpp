@@ -41,11 +41,17 @@ bool ModuleUI::Init()
 
 update_status ModuleUI::PreUpdate(float dt)
 {
+
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleUI::Update(float dt)
+{
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 
-	ImGui::Begin("Pana");
+	/*ImGui::Begin("Pana");
 	if (ImGui::MenuItem("Quit")) 
 	{ 
 		ImGui::End();
@@ -60,16 +66,29 @@ update_status ModuleUI::PreUpdate(float dt)
 		ImGui::EndMainMenuBar();
 		return UPDATE_STOP; 
 	}
+	ImGui::EndMainMenuBar();*/
+
+	ImGui::BeginMainMenuBar();
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("Gui Demo"))
+				showcase = !showcase;
+
+			if(ImGui::MenuItem("Documentation"))
+				App->RequestBrowser("https://desktop.github.com/");
+			
+			if(ImGui::MenuItem("Download Latest")) {}
+
+			if(ImGui::MenuItem("Report a bug")) {}
+
+			if(ImGui::MenuItem("About")) {}
+			
+			ImGui::EndMenu();
+		}
 	ImGui::EndMainMenuBar();
 
 	ImGui::ShowDemoWindow();
 	ImGui::Render();
-
-	return UPDATE_CONTINUE;
-}
-
-update_status ModuleUI::Update(float dt)
-{
 
 	return UPDATE_CONTINUE;
 }
