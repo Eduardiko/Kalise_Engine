@@ -1,6 +1,4 @@
-
-#ifndef __ModuleUI_H__
-#define __ModuleUI_H__
+#pragma once
 
 #include "Module.h"
 #include "SDL/include/SDL.h"
@@ -9,16 +7,18 @@
 #include "imgui_impl_sdl.h"
 #include "imgui_impl_opengl2.h"
 
+#include "UiWindow.h"
+
 class Application;
 
-class ModuleUI : public Module
+class UiWindowManager : public Module
 {
 public:
 
-	ModuleUI(Application* app, bool start_enabled = true);
+	UiWindowManager(Application* app, bool start_enabled = true);
 
 	// Destructor
-	virtual ~ModuleUI();
+	virtual ~UiWindowManager();
 
 	bool Init();
 	update_status PreUpdate(float dt);
@@ -26,11 +26,16 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void MainMenuTest();
+
 	void SetTitle(const char* title);
 
 	bool showcase = true;
 
 public:
-};
 
-#endif // __Module_H__
+	std::vector<UiWindow*> windowList;
+	void AddWindow(UiWindow* win);
+
+
+};
