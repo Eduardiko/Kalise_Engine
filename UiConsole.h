@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "UiWindow.h"
 
+
 class Application;
 
 class UiConsole : public UiWindow
@@ -26,4 +27,16 @@ public:
 public:
 	bool active;
 	bool showConfig;
+
+	bool activeBox;
+
+	int initialBrightness;
+	int initialWidth;
+	int initialHeight;
+
+	bool fullscreen;
+	
+	//std::vector<UiWindow*> fps_log;
+	//int fps_log[];
+
 };

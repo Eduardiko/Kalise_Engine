@@ -83,8 +83,11 @@ update_status UiWindowManager::Update(float dt)
 	while (i != windowList.end() && ret == UPDATE_CONTINUE)
 	{
 		ret = (*i)->PreUpdate(dt);
+		if (ret == UPDATE_STOP) return UPDATE_STOP;
 		ret = (*i)->Update(dt);
+		if (ret == UPDATE_STOP) return UPDATE_STOP;
 		ret = (*i)->PostUpdate(dt);
+		if (ret == UPDATE_STOP) return UPDATE_STOP;
 		i++;
 	}
 
