@@ -11,8 +11,11 @@
 UiWindowManager::UiWindowManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	mainMenu = new UiMainMenu(app, true);
+	console = new UiConsole(app, true);
 
 	AddWindow(mainMenu);
+	AddWindow(console);
+
 }
 
 // Destructor
@@ -67,13 +70,6 @@ update_status UiWindowManager::PreUpdate(float dt)
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 
-	std::vector<UiWindow*>::iterator i = windowList.begin();
-
-	while (i != windowList.end() && ret == UPDATE_CONTINUE)
-	{
-		ret = (*i)->PreUpdate(dt);
-		i++;
-	}
 
 	return ret;
 }
@@ -86,7 +82,9 @@ update_status UiWindowManager::Update(float dt)
 
 	while (i != windowList.end() && ret == UPDATE_CONTINUE)
 	{
+		ret = (*i)->PreUpdate(dt);
 		ret = (*i)->Update(dt);
+		ret = (*i)->PostUpdate(dt);
 		i++;
 	}
 
@@ -103,13 +101,6 @@ update_status UiWindowManager::PostUpdate(float dt)
 
 	update_status ret = UPDATE_CONTINUE;
 
-	std::vector<UiWindow*>::iterator i = windowList.begin();
-
-	while (i != windowList.end() && ret == UPDATE_CONTINUE)
-	{
-		ret = (*i)->PostUpdate(dt);
-		i++;
-	}
 
 	return ret;
 }
@@ -125,15 +116,8 @@ bool UiWindowManager::CleanUp()
     ImGui_ImplSDL2_Shutdown();
     ImGui::DestroyContext();
 	
-	std::vector<UiWindow*>::iterator i = windowList.begin();
 	bool ret = true;
-
-	while (i != windowList.end() && ret)
-	{
-		ret = (*i)->Start();
-		i++;
-	}
-
+	
     return ret;
 }
 

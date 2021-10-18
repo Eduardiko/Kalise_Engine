@@ -10,6 +10,7 @@
 #include "UiWindow.h"
 
 #include "UiMainMenu.h"
+#include "UiConsole.h"
 
 class Application;
 
@@ -40,5 +41,6 @@ public:
 	void AddWindow(UiWindow* win);
 
 	UiMainMenu* mainMenu;
+	UiConsole* console;
 
 };

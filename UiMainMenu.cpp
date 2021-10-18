@@ -46,10 +46,12 @@ update_status UiMainMenu::Update(float dt)
 		ImGui::EndMenu();
 	}
 
-	if (ImGui::BeginMenu("View"))
-	{
+	ImGui::BeginMenu("View");
 
-	}
+	/*if (ImGui::BeginMenu("View"))
+	{
+			// Here goes every window to show/not show
+	}*/
 
 	if (ImGui::BeginMenu("Help"))
 	{
