@@ -25,4 +25,6 @@ public:
 
 public:
 	bool active;
+
+	bool showDemo;
 };

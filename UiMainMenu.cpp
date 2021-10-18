@@ -16,6 +16,7 @@ bool UiMainMenu::Start()
 {
 	bool ret = true;
 
+	showDemo = false;
 
 	return ret;
 }
@@ -36,10 +37,25 @@ update_status UiMainMenu::Update(float dt)
 	update_status ret = UPDATE_CONTINUE;
 
 	ImGui::BeginMainMenuBar();
+	if (ImGui::BeginMenu("File"))
+	{
+		if (ImGui::MenuItem("Quit", "ESC"))
+			ret = UPDATE_STOP;
+
+
+		ImGui::EndMenu();
+	}
+
+	if (ImGui::BeginMenu("View"))
+	{
+
+	}
+
 	if (ImGui::BeginMenu("Help"))
 	{
 		if (ImGui::MenuItem("Gui Demo"))
-	
+			showDemo = !showDemo;
+
 		if (ImGui::MenuItem("Documentation"))
 			App->RequestBrowser("https://desktop.github.com/");
 
@@ -51,7 +67,10 @@ update_status UiMainMenu::Update(float dt)
 
 		ImGui::EndMenu();
 	}
+
 	ImGui::EndMainMenuBar();
+
+	if(showDemo) ImGui::ShowDemoWindow();
 
 	return ret;
 }
