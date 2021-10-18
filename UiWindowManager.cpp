@@ -10,20 +10,27 @@
 
 UiWindowManager::UiWindowManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	mainMenu = new UiMainMenu(app, true);
+
+	AddWindow(mainMenu);
 }
 
 // Destructor
 UiWindowManager::~UiWindowManager()
 {
+	
 	for (int i = 0; i <= windowList.size() - 1; i++)
 	{
 		delete windowList[i];
 	}
+	
 }
 
 // Called before render is available
 bool UiWindowManager::Init()
 {
+	bool ret = true;
+
     // Application init: create a dear imgui context, setup some options, load fonts
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
@@ -37,28 +44,55 @@ bool UiWindowManager::Init()
     ImGui_ImplOpenGL2_Init();
     ImGui_ImplSDL2_InitForOpenGL(App->window->window, App->renderer3D->context);
 
+	std::vector<UiWindow*>::iterator i = windowList.begin();
+	
+	while (i != windowList.end() && ret)
+	{
+		ret = (*i)->Start();
+		i++;
+	}
+
     ImGui::StyleColorsClassic;
 
-	return true;
+	return ret;
 }
 
 
 
 update_status UiWindowManager::PreUpdate(float dt)
 {
+	update_status ret = UPDATE_CONTINUE;
+
 	ImGui_ImplOpenGL2_NewFrame();
 	ImGui_ImplSDL2_NewFrame();
 	ImGui::NewFrame();
 
-	return UPDATE_CONTINUE;
+	std::vector<UiWindow*>::iterator i = windowList.begin();
+
+	while (i != windowList.end() && ret == UPDATE_CONTINUE)
+	{
+		ret = (*i)->PreUpdate(dt);
+		i++;
+	}
+
+	return ret;
 }
 
 update_status UiWindowManager::Update(float dt)
 {
-		
-	MainMenuTest();
+	update_status ret = UPDATE_CONTINUE;
 
-	return UPDATE_CONTINUE;
+	std::vector<UiWindow*>::iterator i = windowList.begin();
+
+	while (i != windowList.end() && ret == UPDATE_CONTINUE)
+	{
+		ret = (*i)->Update(dt);
+		i++;
+	}
+
+	//MainMenuTest();
+
+	return ret;
 }
 
 update_status UiWindowManager::PostUpdate(float dt)
@@ -67,7 +101,17 @@ update_status UiWindowManager::PostUpdate(float dt)
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
 
-	return UPDATE_CONTINUE;
+	update_status ret = UPDATE_CONTINUE;
+
+	std::vector<UiWindow*>::iterator i = windowList.begin();
+
+	while (i != windowList.end() && ret == UPDATE_CONTINUE)
+	{
+		ret = (*i)->PostUpdate(dt);
+		i++;
+	}
+
+	return ret;
 }
 
 void UiWindowManager::SetTitle(const char* title)
@@ -80,8 +124,17 @@ bool UiWindowManager::CleanUp()
     ImGui_ImplOpenGL2_Shutdown();
     ImGui_ImplSDL2_Shutdown();
     ImGui::DestroyContext();
-    /*ImGui::End();*/
-    return true;
+	
+	std::vector<UiWindow*>::iterator i = windowList.begin();
+	bool ret = true;
+
+	while (i != windowList.end() && ret)
+	{
+		ret = (*i)->Start();
+		i++;
+	}
+
+    return ret;
 }
 
 void UiWindowManager::MainMenuTest()

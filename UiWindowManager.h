@@ -9,6 +9,8 @@
 
 #include "UiWindow.h"
 
+#include "UiMainMenu.h"
+
 class Application;
 
 class UiWindowManager : public Module
@@ -37,5 +39,6 @@ public:
 	std::vector<UiWindow*> windowList;
 	void AddWindow(UiWindow* win);
 
+	UiMainMenu* mainMenu;
 
 };
