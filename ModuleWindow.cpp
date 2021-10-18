@@ -99,5 +99,4 @@ void ModuleWindow::SetFullscreen(bool& fullscreen)
 		SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);//SDL usage
 	else
 		SDL_SetWindowFullscreen(window, 0);//SDL usage
-
 }

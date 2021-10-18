@@ -3,8 +3,9 @@
 #include "ModuleWindow.h"
 #include "UiConsole.h"
 
-UiConsole::UiConsole(Application* app, bool start_enabled) : UiWindow(app, start_enabled)
+UiConsole::UiConsole(Application* app_, bool start_enabled) : UiWindow(app, start_enabled)
 {
+	app = app_;
 }
 
 // Destructor
@@ -21,9 +22,11 @@ bool UiConsole::Start()
 
 	activeBox = true;
 	initialBrightness = 5;
-	initialWidth = 1280;
-	initialHeight = 1080;
+
 	fullscreen = false;
+	borderless = false;
+	resizable = false;
+
 	return ret;
 }
 
@@ -64,17 +67,31 @@ update_status UiConsole::Update(float dt)
 	
 		if (ImGui::CollapsingHeader("Window"))
 		{
+			
 			ImGui::Checkbox("Active", &activeBox);
 			ImGui::Text("Icon:");
 			ImGui::SliderInt("Brightness", &initialBrightness, 0, 10);
-			ImGui::SliderInt("Width", &initialWidth, 0, 3840);
-			ImGui::SliderInt("Height", &initialHeight, 0, 2160);
-			ImGui::Text("Refresh rate:");
+			ImGui::SliderInt("Width", &app->window->screen_surface->w, 0, 1920);
+			ImGui::SliderInt("Height", &app->window->screen_surface->h, 0, 1080);
+			if(resizable) SDL_SetWindowSize(app->window->window, app->window->screen_surface->w, app->window->screen_surface->h);
+			ImGui::Text("Refresh rate: %.3f", ImGui::GetIO().Framerate);
 
 			if (ImGui::Checkbox("Fullscreen", &fullscreen))
-				//App->window->SetFullscreen(fullscreen);
-		
-			
+				app->window->SetFullscreen(fullscreen);
+			ImGui::SameLine();
+			if (ImGui::Checkbox("Resizable", &resizable));
+			{
+				if (resizable) SDL_SetWindowResizable(app->window->window, SDL_TRUE);
+				
+				if (!resizable)	SDL_SetWindowResizable(app->window->window, SDL_FALSE);
+				
+			}
+			if (ImGui::Checkbox("Borderless", &borderless));
+			{
+				if (borderless) SDL_SetWindowBordered(app->window->window, SDL_FALSE);
+				if (!borderless) SDL_SetWindowBordered(app->window->window, SDL_TRUE);
+			}
+				
 
 		}
 

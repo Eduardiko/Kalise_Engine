@@ -31,11 +31,12 @@ public:
 	bool activeBox;
 
 	int initialBrightness;
-	int initialWidth;
-	int initialHeight;
 
 	bool fullscreen;
-	
+	bool resizable;
+	bool borderless;
+
+	Application* app;
 	//std::vector<UiWindow*> fps_log;
 	//int fps_log[];
 
