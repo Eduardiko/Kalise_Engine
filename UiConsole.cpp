@@ -86,12 +86,32 @@ update_status UiConsole::Update(float dt)
 				if (!resizable)	SDL_SetWindowResizable(app->window->window, SDL_FALSE);
 				
 			}
+
 			if (ImGui::Checkbox("Borderless", &borderless));
 			{
 				if (borderless) SDL_SetWindowBordered(app->window->window, SDL_FALSE);
 				if (!borderless) SDL_SetWindowBordered(app->window->window, SDL_TRUE);
 			}
 				
+
+		}
+
+		
+
+		if (ImGui::CollapsingHeader("Hardware"))
+		{
+			ImGui::Text("SDL Version:");
+			ImGui::Separator();
+			ImGui::Text("CPUs: %d (Cache: %dkb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+			ImGui::Text("System RAM: %dGb", SDL_GetSystemRAM());	
+			
+			ImGui::Separator();
+			ImGui::Text("GPU:", SDL_GetSystemRAM());
+			ImGui::Text("Brand:", SDL_GetSystemRAM());
+			ImGui::Text("VRAM Budget:", SDL_GetSystemRAM());
+			ImGui::Text("VRAM Usage: %dGb", SDL_GetSystemRAM());
+			ImGui::Text("System RAM: %dGb", SDL_GetSystemRAM());
+
 
 		}
 
