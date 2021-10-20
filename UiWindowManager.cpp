@@ -98,6 +98,22 @@ update_status UiWindowManager::Update(float dt)
 
 update_status UiWindowManager::PostUpdate(float dt)
 {
+	glLineWidth(1.0f);
+
+	glBegin(GL_LINES);
+
+	float d = 100.0f;
+
+	for (float i = -d; i <= d; i += 1.0f)
+	{
+		glVertex3f(i, 0.0f, -d);
+		glVertex3f(i, 0.0f, d);
+		glVertex3f(-d, 0.0f, i);
+		glVertex3f(d, 0.0f, i);
+	}
+	glEnd();
+
+	
 	ImGui::EndFrame();
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
