@@ -26,6 +26,9 @@ private:
 	//p2List<Module*> list_modules;
 	std::vector<Module*> list_modules;
 
+	std::string appName = "Kalise Engine";
+	std::string organizationName = "UPC CITM";
+
 public:
 
 	Application();
@@ -35,6 +38,9 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void RequestBrowser(LPCSTR link);
+
+	void SetName(std::string name, int id);
+	const char* GetName(int id);
 
 private:
 

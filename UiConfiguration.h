@@ -6,14 +6,14 @@
 
 class Application;
 
-class UiConsole : public UiWindow
+class UiConfiguration : public UiWindow
 {
 public:
 	Application* App;
 
-	UiConsole(Application* parent, bool start_enabled = false);
+	UiConfiguration(Application* parent, bool start_enabled = false);
 
-	~UiConsole();
+	~UiConfiguration();
 
 	bool Start();
 
@@ -35,6 +35,7 @@ public:
 	bool fullscreen;
 	bool resizable;
 	bool borderless;
+
 
 	Application* app;
 	//std::vector<UiWindow*> fps_log;

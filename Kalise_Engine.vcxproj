@@ -94,7 +94,7 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="ModuleCamera3D.h" />
     <ClInclude Include="ModuleRenderer3D.h" />
-    <ClInclude Include="UiConsole.h" />
+    <ClInclude Include="UiConfiguration.h" />
     <ClInclude Include="UiMainMenu.h" />
     <ClInclude Include="UiWindowManager.h" />
     <ClInclude Include="Module.h" />
@@ -207,7 +207,7 @@
     <ClCompile Include="ModuleCamera3D.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
     <ClCompile Include="ModuleRenderer3D.cpp" />
-    <ClCompile Include="UiConsole.cpp" />
+    <ClCompile Include="UiConfiguration.cpp" />
     <ClCompile Include="UiMainMenu.cpp" />
     <ClCompile Include="UiWindowManager.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />

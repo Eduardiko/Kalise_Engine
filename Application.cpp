@@ -131,3 +131,26 @@ void Application::AddModule(Module* mod)
 {
 	list_modules.push_back(mod);
 }
+
+void Application::SetName(std::string name, int id)
+{
+
+	if (!name.empty())
+	{
+
+		if (id == 0)
+		{
+			appName = name;
+			window->SetTitle(name.c_str());
+		}
+
+		if (id == 1) organizationName = name;
+	}
+
+}
+
+const char* Application::GetName(int id)
+{
+	if (id == 0) return appName.c_str();
+	if (id == 1) return organizationName.c_str();
+}

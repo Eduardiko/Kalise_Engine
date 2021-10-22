@@ -11,10 +11,10 @@
 UiWindowManager::UiWindowManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	mainMenu = new UiMainMenu(app, true);
-	console = new UiConsole(app, true);
+	config = new UiConfiguration(app, true);
 
 	AddWindow(mainMenu);
-	AddWindow(console);
+	AddWindow(config);
 
 }
 
