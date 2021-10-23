@@ -97,7 +97,7 @@ update_status ModuleCamera3D::Update(float dt)
 
 	}
 
-	float zoomDist = 25.0f * dt;
+	float zoomDist = 1.0f * dt;
 	if (App->input->GetMouseZ() > 0)
 	{
 		distance -= zoomDist;

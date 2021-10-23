@@ -23,13 +23,18 @@ private:
 
 	Timer	ms_timer;
 	float	dt;
-	//p2List<Module*> list_modules;
+
 	std::vector<Module*> list_modules;
 
 	std::string appName = "Kalise Engine";
 	std::string organizationName = "UPC CITM";
 
+	int frameStart;
+	Uint32 sTicks;
+
 public:
+	int maxFps = 60;
+	float currentFps;
 
 	Application();
 	~Application();
@@ -41,6 +46,9 @@ public:
 
 	void SetName(std::string name, int id);
 	const char* GetName(int id);
+
+	inline const float GetFps() { return (float)currentFps; }
+
 
 private:
 

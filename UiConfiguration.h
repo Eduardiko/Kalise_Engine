@@ -3,7 +3,6 @@
 #include "Globals.h"
 #include "UiWindow.h"
 
-
 class Application;
 
 class UiConfiguration : public UiWindow
@@ -38,7 +37,13 @@ public:
 
 
 	Application* app;
-	//std::vector<UiWindow*> fps_log;
-	//int fps_log[];
+	std::vector<float> fps_log;
+	std::vector<float> ms_log;
+	int maxFps;
+
+	int fpsCounter;
+
+
+	
 
 };
