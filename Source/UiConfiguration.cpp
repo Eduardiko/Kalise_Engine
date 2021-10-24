@@ -151,17 +151,53 @@ update_status UiConfiguration::Update(float dt)
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 		ImGui::Checkbox("Active", &activeBox);
-
+		/////// Limit framerate counter
+		SDL_version v;
+		SDL_GetVersion(&v);
+		int major, minor, patch;
+		major = v.major;
+		minor = v.minor;
+		patch = v.patch;
+	
 		ImGui::Text("SDL Version:");
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 0, 255));
+		ImGui::Text("%d.%d.%d", major, minor, patch);
+		ImGui::PopStyleColor();
+
 		ImGui::Separator();
-		ImGui::Text("CPUs: %d (Cache: %dkb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
-		ImGui::Text("System RAM: %dGb", SDL_GetSystemRAM());	
-			
+
+		ImGui::Text("CPUs:");
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 0, 255));
+		ImGui::Text("%d (Cache:%dkb)", SDL_GetCPUCount(), SDL_GetCPUCacheLineSize());
+		ImGui::PopStyleColor();
+
+		ImGui::Text("System RAM:");	
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 0, 255));
+		ImGui::Text("%dGb", SDL_GetSystemRAM() / 1000);
+		ImGui::PopStyleColor();
+
+		ImGui::Text("Caps:");
+		ImGui::SameLine();
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 0, 255));
+		bool threeD, altiVec, avx, avx2, mmx, rdtsc, sse, sse2, sse3, sse41, sse42;
+		getCaps(threeD, altiVec, avx, avx2, mmx, rdtsc, sse, sse2, sse3, sse41, sse42);
+		ImGui::Text("%s %s %s %s %s %s", threeD ? "3DNow," : "", altiVec ? "AltiVec," : "", avx ? "AVX," : "", avx2 ? "AVX2," : "", mmx ? "MMX," : "", rdtsc ? "RDTSC," : "");
+		ImGui::PopStyleColor();
+
 		ImGui::Separator();
+
 		ImGui::Text("GPU:", SDL_GetSystemRAM());
+		ImGui::SameLine();
+
 		ImGui::Text("Brand:", SDL_GetSystemRAM());
+
 		ImGui::Text("VRAM Budget:", SDL_GetSystemRAM());
+
 		ImGui::Text("VRAM Usage: %dGb", SDL_GetSystemRAM());
+
 		ImGui::Text("System RAM: %dGb", SDL_GetSystemRAM());
 
 
@@ -190,4 +226,19 @@ bool UiConfiguration::CleanUp()
 
 
 	return ret;
+}
+
+void UiConfiguration::getCaps(bool& threeD, bool& altiVec, bool& avx, bool& avx2, bool& mmx, bool& rdtsc, bool& sse, bool& sse2, bool& sse3, bool& sse41, bool& sse42)
+{
+	threeD = (bool)SDL_Has3DNow();
+	altiVec = (bool)SDL_HasAltiVec();
+	avx = (bool)SDL_HasAVX();
+	avx2 = (bool)SDL_HasAVX2();
+	mmx = (bool)SDL_HasMMX();
+	rdtsc = (bool)SDL_HasRDTSC();
+	sse = (bool)SDL_HasSSE();
+	sse2 = (bool)SDL_HasSSE2();
+	sse3 = (bool)SDL_HasSSE3();
+	sse41 = (bool)SDL_HasSSE41();
+	sse42 = (bool)SDL_HasSSE42();
 }

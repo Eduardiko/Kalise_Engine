@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Module.h"
-#include "SDL/include/SDL.h"
+#include "SDL.h"
 #include "imgui.h"
 #include "imgui_internal.h"
 #include "imgui_impl_sdl.h"
