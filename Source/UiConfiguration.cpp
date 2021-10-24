@@ -182,6 +182,7 @@ update_status UiConfiguration::Update(float dt)
 		ImGui::Text("Caps:");
 		ImGui::SameLine();
 		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 0, 255));
+		//This needs to be revised better
 		bool threeD, altiVec, avx, avx2, mmx, rdtsc, sse, sse2, sse3, sse41, sse42;
 		getCaps(threeD, altiVec, avx, avx2, mmx, rdtsc, sse, sse2, sse3, sse41, sse42);
 		ImGui::Text("%s %s %s %s %s %s", threeD ? "3DNow," : "", altiVec ? "AltiVec," : "", avx ? "AVX," : "", avx2 ? "AVX2," : "", mmx ? "MMX," : "", rdtsc ? "RDTSC," : "");
