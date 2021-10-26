@@ -98,6 +98,7 @@ update_status UiWindowManager::Update(float dt)
 
 update_status UiWindowManager::PostUpdate(float dt)
 {
+	//grid
 	glLineWidth(1.0f);
 
 	glBegin(GL_LINES);

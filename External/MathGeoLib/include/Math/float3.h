@@ -24,6 +24,8 @@
 #endif
 
 #include "../MathGeoLibFwd.h"
+#include "MathConstants.h"
+#include "assume.h"
 
 #ifdef MATH_QT_INTEROP
 #include <QVector3D>

@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "UiConfiguration.h"
-
+#include <gl/GL.h>
 
 UiConfiguration::UiConfiguration(Application* app_, bool start_enabled) : UiWindow(app, start_enabled)
 {
@@ -82,6 +82,37 @@ update_status UiConfiguration::Update(float dt)
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
+		//Buttons For Texture, Lightning... config
+		/*ImGui::BeginTabBar("Pana");
+		if (ImGui::BeginTabItem("Open GL"))
+		{
+			static bool depth = true;
+			static bool cull = true;
+			static bool lighting = true;
+			static bool materialColor = true;
+			static bool texture2D = true;
+
+			ImGui::Checkbox("GL_DEPTH_TEST", &depth);
+			ImGui::Checkbox("GL_CULL_FACE", &cull);
+			ImGui::Checkbox("GL_LIGHTING", &lighting);
+			ImGui::Checkbox("GL_COLOR_MATERIAL", &materialColor);
+			ImGui::Checkbox("GL_TEXTURE_2D", &texture2D);
+
+			if (!depth)
+				glDisable(GL_DEPTH_TEST);
+			if (!cull)
+				glDisable(GL_CULL_FACE);
+			if (!lighting)
+				glDisable(GL_LIGHTING);
+			if (!materialColor)
+				glDisable(GL_COLOR_MATERIAL);
+			if (!texture2D)
+				glDisable(GL_TEXTURE_2D);
+
+			ImGui::EndTabItem();
+		}
+		ImGui::EndTabBar();*/
+		
 		ImGui::Checkbox("Active", &activeBox);
 
 		static char name[50] = "";
