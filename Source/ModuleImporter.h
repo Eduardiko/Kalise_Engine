@@ -17,7 +17,7 @@ public:
 	bool CleanUp();
 
 	void ImportScene(const char* path);
-	Mesh* ImportModel(aiMesh* mesh);
+	Mesh* ImportModel(aiMesh* aimesh);
 
 	std::vector<Mesh*> meshList;
 

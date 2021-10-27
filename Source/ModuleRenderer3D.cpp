@@ -3,8 +3,7 @@
 #include "ModuleRenderer3D.h"
 
 #include "glew.h"
-#include "SDL_opengl.h"
-#include <gl/GL.h>
+#include "SDL_opengl.h"/#include <gl/GL.h>
 #include <gl/GLU.h>
 
 
@@ -22,6 +21,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 // Called before render is available
 bool ModuleRenderer3D::Init()
 {
+
 	LOG("Creating 3D Renderer context");
 	bool ret = true;
 	

@@ -28,8 +28,8 @@ Mesh::~Mesh()
 	delete normals;
 	normals = nullptr;
 
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glDeleteBuffers(1, &textureBuffer);
+	//glBindTexture(GL_TEXTURE_2D, 0);
+	//glDeleteBuffers(1, &textureBuffer);
 }
 
 void Mesh::InitBuffers()
@@ -43,11 +43,6 @@ void Mesh::InitBuffers()
 	glGenBuffers(1, &normalsBuffer);
 	glBindBuffer(GL_NORMAL_ARRAY, normalsBuffer);
 	glBufferData(GL_NORMAL_ARRAY, sizeof(float) * vertexCount * 3, normals, GL_STATIC_DRAW);
-
-	// Textures
-	glGenBuffers(1, &textureBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCount * 2, textureCoordinates, GL_STATIC_DRAW);
 
 	//Indices
 	glGenBuffers(1, &indexBuffer);

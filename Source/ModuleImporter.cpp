@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "glew.h"
 
 #include "scene.h"
 #include "cimport.h"
@@ -23,8 +24,9 @@ bool ModuleImporter::Init()
 
 bool ModuleImporter::Start()
 {
-	//ImportScene("Assets/warrior.fbx");
-	ImportScene("Assets/BakerHouse.fbx");
+	//ImportScene("Assets/BakerHouse.fbx");
+	//glewInit();
+	ImportScene("Assets/warrior.fbx");
 	return true;
 }
 
