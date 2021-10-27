@@ -4,6 +4,7 @@ Application::Application()
 {
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
+	importer = new ModuleImporter(this);
 	ui = new UiWindowManager(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
@@ -17,6 +18,7 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
+	AddModule(importer);
 	AddModule(ui);
 	
 	// Scenes
@@ -28,9 +30,9 @@ Application::Application()
 Application::~Application()
 {
 
-	for(int i = 0; i <= list_modules.size() - 1; i++)
+	for(int i = 0; i <= moduleList.size() - 1; i++)
 	{
-		delete list_modules[i];
+		delete moduleList[i];
 	}
 }
 
@@ -40,9 +42,9 @@ bool Application::Init()
 
 	// Call Init() in all modules
 
-	std::vector<Module*>::iterator item = list_modules.begin();
+	std::vector<Module*>::iterator item = moduleList.begin();
 
-	while (item != list_modules.end() && ret)
+	while (item != moduleList.end() && ret)
 	{
 		ret = (*item)->Init();
 		item++;
@@ -52,9 +54,9 @@ bool Application::Init()
 
 	// After all Init calls we call Start() in all modules
 	LOG("Application Start --------------");
-	item = list_modules.begin();
+	item = moduleList.begin();
 
-	while (item != list_modules.end() && ret)
+	while (item != moduleList.end() && ret)
 	{
 		ret = (*item)->Start();
 		item++;
@@ -96,26 +98,26 @@ update_status Application::Update()
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	
-	//p2List_item<Module*>* item = list_modules.getFirst();
-	std::vector<Module*>::iterator item = list_modules.begin();
+	//p2List_item<Module*>* item = moduleList.getFirst();
+	std::vector<Module*>::iterator item = moduleList.begin();
 
-	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
+	while(item != moduleList.end() && ret == UPDATE_CONTINUE)
 	{
 		ret = (*item)->PreUpdate(dt);
 		item++;
 	}
 
-	item = list_modules.begin();
+	item = moduleList.begin();
 
-	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
+	while(item != moduleList.end() && ret == UPDATE_CONTINUE)
 	{
 		ret = (*item)->Update(dt);
 		item++;
 	}
 
-	item = list_modules.begin();
+	item = moduleList.begin();
 
-	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
+	while(item != moduleList.end() && ret == UPDATE_CONTINUE)
 	{
 		ret = (*item)->PostUpdate(dt);
 		item++;
@@ -129,9 +131,9 @@ bool Application::CleanUp()
 {
 	bool ret = true;
 
-	for (int i = 0; i <= list_modules.size() - 1; i++)
+	for (int i = 0; i <= moduleList.size() - 1; i++)
 	{
-		ret = list_modules[i]->CleanUp();
+		ret = moduleList[i]->CleanUp();
 	}
 	return ret;
 }
@@ -143,7 +145,7 @@ void Application::RequestBrowser(LPCSTR link)
 
 void Application::AddModule(Module* mod)
 {
-	list_modules.push_back(mod);
+	moduleList.push_back(mod);
 }
 
 void Application::SetName(std::string name, int id)

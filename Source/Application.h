@@ -7,6 +7,7 @@
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
+#include "ModuleImporter.h"
 #include "UiWindowManager.h"
 #include <vector>
 
@@ -15,6 +16,7 @@ class Application
 public:
 	ModuleWindow* window;
 	ModuleInput* input;
+	ModuleImporter* importer;
 	UiWindowManager* ui;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
@@ -24,7 +26,7 @@ private:
 	Timer	ms_timer;
 	float	dt;
 
-	std::vector<Module*> list_modules;
+	std::vector<Module*> moduleList;
 
 	std::string appName = "Kalise Engine";
 	std::string organizationName = "UPC CITM";
