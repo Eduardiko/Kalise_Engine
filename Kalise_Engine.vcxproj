@@ -80,6 +80,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application.h" />
+    <ClInclude Include="Source\BaseScene.h" />
     <ClInclude Include="Source\Color.h" />
     <ClInclude Include="Source\GameObject.h" />
     <ClInclude Include="Source\glmath.h" />
@@ -99,7 +100,7 @@
     <ClInclude Include="Source\ModuleRenderer3D.h" />
     <ClInclude Include="Source\UiConfiguration.h" />
     <ClInclude Include="Source\UiMainMenu.h" />
-    <ClInclude Include="Source\UiWindowManager.h" />
+    <ClInclude Include="Source\UiManager.h" />
     <ClInclude Include="Source\Module.h" />
     <ClInclude Include="Source\ModuleInput.h" />
     <ClInclude Include="Source\ModuleWindow.h" />
@@ -195,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Application.cpp" />
+    <ClCompile Include="Source\BaseScene.cpp" />
     <ClCompile Include="Source\Color.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\glmath.cpp" />
@@ -215,7 +217,7 @@
     <ClCompile Include="Source\ModuleRenderer3D.cpp" />
     <ClCompile Include="Source\UiConfiguration.cpp" />
     <ClCompile Include="Source\UiMainMenu.cpp" />
-    <ClCompile Include="Source\UiWindowManager.cpp" />
+    <ClCompile Include="Source\UiManager.cpp" />
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Timer.cpp" />

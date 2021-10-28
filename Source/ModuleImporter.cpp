@@ -25,8 +25,8 @@ bool ModuleImporter::Init()
 bool ModuleImporter::Start()
 {
 	//ImportScene("Assets/BakerHouse.fbx");
-	//glewInit();
-	ImportScene("Assets/warrior.fbx");
+	glewInit();
+	//ImportScene("Assets/warrior.fbx");
 	return true;
 }
 
@@ -37,7 +37,7 @@ bool ModuleImporter::CleanUp()
 	return true;
 }
 
-void ModuleImporter::ImportScene(const char* path)
+std::vector<Mesh*> ModuleImporter::ImportScene(const char* path)
 {
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
@@ -45,7 +45,9 @@ void ModuleImporter::ImportScene(const char* path)
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
 		for (uint i = 0; i < scene->mNumMeshes; i++)
 		{
-			meshList.push_back(ImportModel(scene->mMeshes[i]));
+			Mesh* mesh = ImportModel(scene->mMeshes[i]);
+			if (mesh != nullptr) meshList.push_back(mesh);
+
 		}
 		aiReleaseImport(scene);
 	}
@@ -54,6 +56,8 @@ void ModuleImporter::ImportScene(const char* path)
 		//LOG missing
 	}
 
+
+	return meshList;
 }
 
 Mesh* ModuleImporter::ImportModel(aiMesh* aiMesh)

@@ -1,6 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
-#include "UiWindowManager.h"
+#include "ModuleImporter.h"
+#include "UiManager.h"
+#include "imgui.h"
 #include "SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -8,7 +10,7 @@
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
-UiWindowManager::UiWindowManager(Application* app, bool start_enabled) : Module(app, start_enabled)
+UiManager::UiManager(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	mainMenu = new UiMainMenu(app, true);
 	config = new UiConfiguration(app, true);
@@ -19,7 +21,7 @@ UiWindowManager::UiWindowManager(Application* app, bool start_enabled) : Module(
 }
 
 // Destructor
-UiWindowManager::~UiWindowManager()
+UiManager::~UiManager()
 {
 	
 	for (int i = 0; i <= windowList.size() - 1; i++)
@@ -30,7 +32,7 @@ UiWindowManager::~UiWindowManager()
 }
 
 // Called before render is available
-bool UiWindowManager::Init()
+bool UiManager::Init()
 {
 	bool ret = true;
 
@@ -40,6 +42,7 @@ bool UiWindowManager::Init()
 
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 
 
     // Application main loop
@@ -57,13 +60,16 @@ bool UiWindowManager::Init()
 
     ImGui::StyleColorsClassic;
 
+	LoadScene("Assets/BakerHouse.fbx");
+
 	return ret;
 }
 
 
 
-update_status UiWindowManager::PreUpdate(float dt)
+update_status UiManager::PreUpdate(float dt)
 {
+
 	update_status ret = UPDATE_CONTINUE;
 
 	ImGui_ImplOpenGL2_NewFrame();
@@ -74,7 +80,7 @@ update_status UiWindowManager::PreUpdate(float dt)
 	return ret;
 }
 
-update_status UiWindowManager::Update(float dt)
+update_status UiManager::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
@@ -96,7 +102,7 @@ update_status UiWindowManager::Update(float dt)
 	return ret;
 }
 
-update_status UiWindowManager::PostUpdate(float dt)
+update_status UiManager::PostUpdate(float dt)
 {
 	//grid
 	glLineWidth(1.0f);
@@ -125,12 +131,12 @@ update_status UiWindowManager::PostUpdate(float dt)
 	return ret;
 }
 
-void UiWindowManager::SetTitle(const char* title)
+void UiManager::SetTitle(const char* title)
 {
 
 }
 
-bool UiWindowManager::CleanUp()
+bool UiManager::CleanUp()
 {
     ImGui_ImplOpenGL2_Shutdown();
     ImGui_ImplSDL2_Shutdown();
@@ -141,7 +147,23 @@ bool UiWindowManager::CleanUp()
     return ret;
 }
 
-void UiWindowManager::MainMenuTest()
+void UiManager::LoadScene(const char* path)
+{
+
+	//if (currentScene == nullptr) currentScene = new Scene();
+	//App->importer->ImportScene("Assets/BakerHouse.fbx");
+
+	std::vector<Mesh*> meshList = App->importer->ImportScene(path);
+	for (int i = 0; i < meshList.size(); i++) {
+	/*	GameObject* object = new GameObject(App, "New GameObject", true);
+		object->meshFilter->mesh = meshes[i];
+		object->meshFilter->mesh->InitializeBuffers();
+		currentScene->objects.push_back(object);*/
+		if(meshList[i] != nullptr) meshList[i]->InitBuffers();
+	}
+}
+
+void UiManager::MainMenuTest()
 {
 	ImGui::BeginMainMenuBar();
 	if (ImGui::BeginMenu("Help"))
@@ -163,7 +185,7 @@ void UiWindowManager::MainMenuTest()
 	ImGui::EndMainMenuBar();
 }
 
-void UiWindowManager::AddWindow(UiWindow* win)
+void UiManager::AddWindow(UiWindow* win)
 {
 	windowList.push_back(win);
 }

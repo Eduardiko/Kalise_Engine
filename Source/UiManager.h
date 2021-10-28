@@ -14,20 +14,22 @@
 
 class Application;
 
-class UiWindowManager : public Module
+class UiManager : public Module
 {
 public:
 
-	UiWindowManager(Application* app, bool start_enabled = true);
+	UiManager(Application* app, bool start_enabled = true);
 
 	// Destructor
-	virtual ~UiWindowManager();
+	virtual ~UiManager();
 
 	bool Init();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
+
+	void LoadScene(const char* path);
 
 	void MainMenuTest();
 

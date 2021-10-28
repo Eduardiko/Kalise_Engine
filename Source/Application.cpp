@@ -5,7 +5,7 @@ Application::Application()
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
 	importer = new ModuleImporter(this);
-	ui = new UiWindowManager(this);
+	ui = new UiManager(this);
 	renderer3D = new ModuleRenderer3D(this);
 	camera = new ModuleCamera3D(this);
 	

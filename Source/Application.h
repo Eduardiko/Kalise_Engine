@@ -8,7 +8,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleImporter.h"
-#include "UiWindowManager.h"
+#include "UiManager.h"
 #include <vector>
 
 class Application
@@ -17,7 +17,7 @@ public:
 	ModuleWindow* window;
 	ModuleInput* input;
 	ModuleImporter* importer;
-	UiWindowManager* ui;
+	UiManager* ui;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 
