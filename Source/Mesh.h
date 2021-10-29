@@ -18,6 +18,15 @@ public:
 	void DrawVertexNormals() const;
 	void DrawFaceNormals() const;
 
+	void InitRender() const;
+	void EndRender() const;
+
+	void DrawVertices() const;
+	void DrawNormals() const;
+	void DrawTexture() const;
+	void BindIndices() const;
+	void ApplyTransform() const;
+	void DrawElements() const;
 public:
 	unsigned int indexBuffer = 0;
 	int indexCount = -1;

@@ -24,9 +24,7 @@ bool ModuleImporter::Init()
 
 bool ModuleImporter::Start()
 {
-	//ImportScene("Assets/BakerHouse.fbx");
-	//glewInit();
-	//ImportScene("Assets/warrior.fbx");
+
 	return true;
 }
 

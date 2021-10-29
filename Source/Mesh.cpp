@@ -57,13 +57,14 @@ void Mesh::Render() const
 	//glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 	//glBindTexture(GL_TEXTURE_2D, textureID);
 
-	glPushMatrix();
-	glMultMatrixf(transform.M);
-
-	if (drawFaceNormals) DrawFaceNormals();
-	if (drawVertexNormals) DrawVertexNormals();
-
-	glPopMatrix();
+	InitRender();
+	DrawVertices();
+	DrawNormals();
+	//DrawTexture();
+	BindIndices();
+	ApplyTransform();
+	DrawElements();
+	EndRender();
 }
 
 void Mesh::InnerRender() const
@@ -130,4 +131,60 @@ void Mesh::DrawFaceNormals() const
 	glColor3f(1.0f, 1.0f, 1.0f);
 
 	glEnd();
+}
+
+void Mesh::InitRender() const
+{
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
+void Mesh::EndRender() const
+{
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_NORMAL_ARRAY, 0);
+	glBindBuffer(GL_TEXTURE_COORD_ARRAY, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+}
+
+void Mesh::DrawVertices() const
+{
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+}
+
+void Mesh::DrawNormals() const
+{
+	glBindBuffer(GL_NORMAL_ARRAY, normalsBuffer);
+	glNormalPointer(GL_FLOAT, 0, NULL);
+}
+
+void Mesh::DrawTexture() const
+{
+	/*glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	glBindTexture(GL_TEXTURE_2D, gameObject->texture->textureId);*/
+}
+
+void Mesh::BindIndices() const
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+}
+
+void Mesh::ApplyTransform() const
+{
+	glPushMatrix();
+	glMultMatrixf(transform.M);
+	glPopMatrix();
+}
+
+void Mesh::DrawElements() const
+{
+	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, NULL);
 }
