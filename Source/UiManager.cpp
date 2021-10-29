@@ -3,6 +3,7 @@
 #include "ModuleImporter.h"
 #include "UiManager.h"
 #include "imgui.h"
+#include "glew.h"
 #include "SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -60,12 +61,19 @@ bool UiManager::Init()
 
     ImGui::StyleColorsClassic;
 
-	LoadScene("Assets/BakerHouse.fbx");
+	
 
 	return ret;
 }
 
+bool UiManager::Start()
+{
+	glewInit();
 
+	LoadScene("Assets/BakerHouse.fbx");
+
+	return true;
+}
 
 update_status UiManager::PreUpdate(float dt)
 {

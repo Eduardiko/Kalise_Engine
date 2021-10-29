@@ -6,7 +6,7 @@
 #include <gl/GLU.h>
 
 // ------------------------------------------------------------
-Mesh::Mesh() : vertexBuffer(-1), vertexCount(-1), vertices(nullptr), indexBuffer(-1), indexCount(-1), indices(nullptr),
+Mesh::Mesh() : transform(IdentityMatrix), wire(false), vertexBuffer(-1), vertexCount(-1), vertices(nullptr), indexBuffer(-1), indexCount(-1), indices(nullptr),
 normalsBuffer(-1)
 {
 }
@@ -57,13 +57,13 @@ void Mesh::Render() const
 	//glTexCoordPointer(2, GL_FLOAT, 0, NULL);
 	//glBindTexture(GL_TEXTURE_2D, textureID);
 
-	//glPushMatrix();
-	//glMultMatrixf(transform.M);
+	glPushMatrix();
+	glMultMatrixf(transform.M);
 
-	//if (drawFaceNormals) DrawFaceNormals();
-	//if (drawVertexNormals) DrawVertexNormals();
+	if (drawFaceNormals) DrawFaceNormals();
+	if (drawVertexNormals) DrawVertexNormals();
 
-	//glPopMatrix();
+	glPopMatrix();
 }
 
 void Mesh::InnerRender() const

@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "Mesh.h"
 
 #include "glew.h"
 #include "SDL_opengl.h"/#include <gl/GL.h>
@@ -117,10 +118,22 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
-
+	
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
 	
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleRenderer3D::Update(float dt)
+{
+	
+	int p = App->importer->meshList.size();
+	for (int i = 0; i < App->importer->meshList.size(); i++) {
+		//scene->objects[i]->meshRenderer->Render();
+		App->importer->meshList[i]->Render();
+	}
+
 	return UPDATE_CONTINUE;
 }
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "glmath.h"
-#include "Color.h"
+//#include "Color.h"
 #include <vector>
 
 class Mesh
@@ -32,4 +32,9 @@ public:
 
 	unsigned int textureBuffer = 0;
 	float* textureCoordinates = nullptr;
+
+	mat4x4 transform;
+	bool wire;
+	bool drawFaceNormals = true;
+	bool drawVertexNormals = true;
 };

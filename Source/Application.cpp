@@ -18,8 +18,8 @@ Application::Application()
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
-	AddModule(importer);
 	AddModule(ui);
+	AddModule(importer);
 	
 	// Scenes
 
