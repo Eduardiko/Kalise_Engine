@@ -1,7 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleImporter.h"
-#include "glew.h"
+//#include "glew.h"
 
 #include "scene.h"
 #include "cimport.h"

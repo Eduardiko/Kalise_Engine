@@ -1,26 +1,28 @@
 #pragma once
 
-#include <string>
-#include "Application.h"
-#include "MathGeoLib.h"
+#include "Component.h"
+#include "Mesh.h"
 
-class Transform;
+#include <string>
+#include <vector>
+#include "Application.h"
+
+//class Component;
 
 class GameObject {
 public:
-	GameObject(Application* app, std::string name);
+	GameObject(std::string name, bool active = true);
 	~GameObject();
 
-	Transform* transform;
+	void Update(float dt);
+	Component* CreateComponent(ComponentType type);
 
+private:
+
+	bool active;
 	std::string name;
-};
+	std::vector<Component*> componentList;
 
-class Transform {
-public:
-	Transform(Application* app, GameObject* gameObject);
-
-	float3 position;
-	float3 rotation;
-	float3 scale;
+	GameObject* parent = nullptr;
+	std::vector<GameObject*> childrenList;
 };

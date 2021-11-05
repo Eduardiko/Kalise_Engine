@@ -2,31 +2,35 @@
 
 #include "Application.h"
 
-Transform::Transform(Application* app, GameObject* gameObject) {
-	
 
-	//this->position.Set(0.0f, 0.0f, 0.0f);
-	this->position.x = 0.0f;
-	this->position.y = 0.0f;
-	this->position.z = 0.0f;
 
-	//this->rotation.Set(0.0f, 0.0f, 0.0f);
-	this->rotation.x = 0.0f;
-	this->rotation.y = 0.0f;
-	this->rotation.z = 0.0f;
-
-	//this->scale.Set(0, 0, 0);
-	this->scale.x = 0.0f;
-	this->scale.y = 0.0f;
-	this->scale.z = 0.0f;
-}
-
-GameObject::GameObject(Application* app, std::string name) {
+GameObject::GameObject(std::string name, bool active)
+{
 	this->name = name;
-	this->transform = new Transform(app, this);
+
 }
 
 GameObject::~GameObject()
 {
-	delete transform;
+	for (int i = 0; i < componentList.size(); i++) {
+		delete componentList[i];
+	}
+}
+
+void GameObject::Update(float dt)
+{
+	for (int i = 0; i < componentList.size(); i++) {
+		componentList[i]->Update(dt);
+	}
+
+	for (int i = 0; i < childrenList.size(); i++) {
+		childrenList[i]->Update(dt);
+	}
+}
+
+Component* GameObject::CreateComponent(ComponentType type)
+{
+	Component* component = new Component(type);
+
+	return component;
 }

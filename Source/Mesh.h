@@ -39,6 +39,7 @@ public:
 	unsigned int normalsBuffer = 0;
 	float* normals = nullptr;
 
+	unsigned int textureID = -1;
 	unsigned int textureBuffer = 0;
 	float* textureCoordinates = nullptr;
 
