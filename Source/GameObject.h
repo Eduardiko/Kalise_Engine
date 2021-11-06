@@ -23,8 +23,6 @@ public:
 
 	std::vector<Component*> GetComponents();
 
-	Transform* GetTransform();
-
 	std::vector<Component*> componentList;
 private:
 

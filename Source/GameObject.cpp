@@ -79,17 +79,3 @@ void GameObject::AddMesh(ComponentType type, Mesh* mesh)
 std::vector<Component*> GameObject::GetComponents() {
 	return componentList;
 }
-
-Transform* GameObject::GetTransform()
-{
-	Transform* transform = nullptr;
-
-	for (int i = 0; i < componentList.size(); i++) {
-		if ((*componentList[i]).type == ComponentType::TRANSFORM)
-		{
-			transform = (Transform*)componentList[i];
-		}
-	}
-
-	return transform;
-}
