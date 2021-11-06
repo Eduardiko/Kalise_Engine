@@ -99,6 +99,7 @@
     <ClInclude Include="Source\ModuleCamera3D.h" />
     <ClInclude Include="Source\ModuleImporter.h" />
     <ClInclude Include="Source\ModuleRenderer3D.h" />
+    <ClInclude Include="Source\Transform.h" />
     <ClInclude Include="Source\UiConfiguration.h" />
     <ClInclude Include="Source\UiMainMenu.h" />
     <ClInclude Include="Source\UiManager.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="Source\ModuleImporter.cpp" />
     <ClCompile Include="Source\ModuleInput.cpp" />
     <ClCompile Include="Source\ModuleRenderer3D.cpp" />
+    <ClCompile Include="Source\Transform.cpp" />
     <ClCompile Include="Source\UiConfiguration.cpp" />
     <ClCompile Include="Source\UiMainMenu.cpp" />
     <ClCompile Include="Source\UiManager.cpp" />

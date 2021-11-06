@@ -163,6 +163,7 @@ void UiManager::LoadScene(const char* path)
 
 	std::vector<Mesh*> meshList = App->importer->ImportScene(path);
 	for (int i = 0; i < meshList.size(); i++) {
+
 	/*	GameObject* object = new GameObject(App, "New GameObject", true);
 		object->meshFilter->mesh = meshes[i];
 		object->meshFilter->mesh->InitializeBuffers();

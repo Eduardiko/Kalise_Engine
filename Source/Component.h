@@ -2,6 +2,7 @@
 
 #include "Globals.h"
 #include "MathGeoLib.h"
+#include "Mesh.h"
 
 class GameObject;
 
@@ -16,6 +17,8 @@ enum ComponentType
 class Component {
 public:
 	Component(ComponentType type, bool active = true);
+	Component(ComponentType type, Mesh* mesh, bool active = true);
+
 	virtual ~Component();
 
 	virtual void Enable();
@@ -25,29 +28,12 @@ public:
 	virtual void Disable();
 
 
-private:
-	bool active;
-	GameObject* object;
+	GameObject* parent;
 	ComponentType type;
+	Mesh* mesh;
+
+	bool active;
+private:
 
 
 };
-
-class Transform : public Component {
-public:
-	Transform();
-
-	float3x4 transformMatrix;
-	float3 position;
-	float3 scale;
-	Quat rotation;
-};
-
-//class Mesh : public Component
-//{
-//public:
-//	Mesh(Mesh* mesh);
-//
-//private:
-//	Mesh* mesh = nullptr;
-//};
