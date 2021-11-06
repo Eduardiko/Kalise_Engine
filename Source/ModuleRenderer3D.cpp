@@ -128,11 +128,11 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::Update(float dt)
 {
 	
-	int p = App->importer->meshList.size();
+	/*int p = App->importer->meshList.size();
 	for (int i = 0; i < App->importer->meshList.size(); i++) {
-		//scene->objects[i]->meshRenderer->Render();
+		scene->objects[i]->meshRenderer->Render();
 		App->importer->meshList[i]->Render();
-	}
+	}*/
 
 	return UPDATE_CONTINUE;
 }

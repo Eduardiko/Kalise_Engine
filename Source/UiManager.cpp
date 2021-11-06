@@ -71,17 +71,6 @@ bool UiManager::Start()
 {
 	glewInit();
 
-	LoadScene("Assets/BakerHouse.fbx");
-
-	int i = objectList.size();
-
-	for (int i = 0; i < objectList.size(); i++) {
-		for (auto component : objectList[i]->GetComponents())
-		{
-			if (component->GetType() == ComponentType::MESH)
-				component->GetMesh()->InitBuffers();
-		}
-	}
 
 	return true;
 }
@@ -177,7 +166,7 @@ void UiManager::LoadScene(const char* path)
 
 		GameObject* object = new GameObject("BakerHouse");
 		object->CreateComponent(ComponentType::MESH, meshList[i]);
-		objectList.push_back(object);
+		App->scene->objectList.push_back(object);
 
 
 		//if(meshList[i] != nullptr) meshList[i]->InitBuffers();

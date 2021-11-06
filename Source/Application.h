@@ -9,6 +9,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleImporter.h"
 #include "UiManager.h"
+#include "BaseScene.h"
 #include <vector>
 
 class Application
@@ -20,6 +21,7 @@ public:
 	UiManager* ui;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
+	BaseScene* scene;
 
 private:
 

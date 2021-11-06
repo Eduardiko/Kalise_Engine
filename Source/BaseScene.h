@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Globals.h"
 #include "Module.h"
 #include <vector>
-#include "GameObject.h"
 
+class Application;
 class GameObject;
 
-class BaseScene : public Module{
+class BaseScene : public Module {
 public:
 	BaseScene(Application* app, bool start_enabled = true);
 	~BaseScene();

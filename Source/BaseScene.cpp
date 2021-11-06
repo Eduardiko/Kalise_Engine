@@ -1,8 +1,7 @@
+#include "Globals.h"
 #include "Application.h"
 #include "BaseScene.h"
 #include "GameObject.h"
-
-
 
 BaseScene::BaseScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -10,18 +9,20 @@ BaseScene::BaseScene(Application* app, bool start_enabled) : Module(app, start_e
 
 BaseScene::~BaseScene()
 {
-	for (int i = 0; i < objectList.size(); i++) {
+	/*for (int i = 0; i < objectList.size(); i++) {
 		delete objectList[i];
-	}
+	}*/
 }
 
 bool BaseScene::Init()
 {
-	return false;
+	return true;
 }
 
 bool BaseScene::Start()
 {
+	App->ui->LoadScene("Assets/BakerHouse.fbx");
+
 
 	for (int i = 0; i < objectList.size(); i++) {
 		for (auto component : objectList[i]->GetComponents())
@@ -31,12 +32,12 @@ bool BaseScene::Start()
 		}
 	}
 
-	return false;
+	return true;
 }
 
 update_status BaseScene::PreUpdate(float dt)
 {
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 update_status BaseScene::Update(float dt)
@@ -48,15 +49,16 @@ update_status BaseScene::Update(float dt)
 				component->GetMesh()->Render();
 		}
 	}
-	return update_status();
+
+	return UPDATE_CONTINUE;
 }
 
 update_status BaseScene::PostUpdate(float dt)
 {
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 bool BaseScene::CleanUp()
 {
-	return false;
+	return true;
 }
