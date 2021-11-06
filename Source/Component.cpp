@@ -28,3 +28,8 @@ void Component::Update(float dt)
 void Component::Disable()
 {
 }
+
+Mesh* Component::GetMesh() 
+{ 
+	return mesh; 
+}

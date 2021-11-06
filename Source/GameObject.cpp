@@ -31,10 +31,10 @@ void GameObject::Update(float dt)
 
 bool GameObject::CleanUp()
 {
-	return false; 
+	return false;
 }
 
-Component* GameObject::CreateComponent(ComponentType type, Mesh* mesh)
+void GameObject::CreateComponent(ComponentType type, Mesh* mesh)
 {
 	Component* component = nullptr;
 
@@ -68,13 +68,16 @@ Component* GameObject::CreateComponent(ComponentType type, Mesh* mesh)
 	}
 	
 
-	return component;
 }
 
 void GameObject::AddMesh(ComponentType type, Mesh* mesh)
 {
 	Component* component = new Component(type, mesh);
 	componentList.push_back(component);
+}
+
+std::vector<Component*> GameObject::GetComponents() {
+	return componentList;
 }
 
 Transform* GameObject::GetTransform()

@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "GameObject.h"
 #include "UiManager.h"
 #include "imgui.h"
 #include "glew.h"
@@ -71,6 +72,16 @@ bool UiManager::Start()
 	glewInit();
 
 	LoadScene("Assets/BakerHouse.fbx");
+
+	int i = objectList.size();
+
+	for (int i = 0; i < objectList.size(); i++) {
+		for (auto component : objectList[i]->GetComponents())
+		{
+			if (component->GetType() == ComponentType::MESH)
+				component->GetMesh()->InitBuffers();
+		}
+	}
 
 	return true;
 }
@@ -164,11 +175,12 @@ void UiManager::LoadScene(const char* path)
 	std::vector<Mesh*> meshList = App->importer->ImportScene(path);
 	for (int i = 0; i < meshList.size(); i++) {
 
-	/*	GameObject* object = new GameObject(App, "New GameObject", true);
-		object->meshFilter->mesh = meshes[i];
-		object->meshFilter->mesh->InitializeBuffers();
-		currentScene->objects.push_back(object);*/
-		if(meshList[i] != nullptr) meshList[i]->InitBuffers();
+		GameObject* object = new GameObject("BakerHouse");
+		object->CreateComponent(ComponentType::MESH, meshList[i]);
+		objectList.push_back(object);
+
+
+		//if(meshList[i] != nullptr) meshList[i]->InitBuffers();
 	}
 }
 

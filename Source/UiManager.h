@@ -13,6 +13,7 @@
 #include "UiConfiguration.h"
 
 class Application;
+class GameObject;
 
 class UiManager : public Module
 {
@@ -45,5 +46,7 @@ public:
 
 	UiMainMenu* mainMenu;
 	UiConfiguration* config;
+
+	std::vector<GameObject*> objectList;
 
 };

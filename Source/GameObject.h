@@ -17,9 +17,11 @@ public:
 	void Update(float dt);
 	bool CleanUp();
 
-	Component* CreateComponent(ComponentType type, Mesh* mesh);
+	void CreateComponent(ComponentType type, Mesh* mesh);
 
 	void AddMesh(ComponentType type, Mesh* mesh);
+
+	std::vector<Component*> GetComponents();
 
 	Transform* GetTransform();
 

@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "Module.h"
 #include <vector>
+#include "GameObject.h"
 
 class GameObject;
 
@@ -20,10 +21,9 @@ public:
 
 	bool CleanUp();
 
-	std::vector<GameObject*> objects;
+	std::vector<GameObject*> objectList;
 
 private:
 	GameObject* parent = nullptr;
 
-	std::vector<GameObject> objectList;
 };

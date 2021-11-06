@@ -27,6 +27,9 @@ public:
 
 	virtual void Disable();
 
+	Mesh* GetMesh();
+	ComponentType GetType() { return type; }
+
 
 	GameObject* parent;
 	ComponentType type;
