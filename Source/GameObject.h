@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Component.h"
-#include "Mesh.h"
-#include "Transform.h"
+
 
 #include <string>
 #include <vector>
 
 class Component;
+
 
 class GameObject {
 public:
@@ -17,9 +17,10 @@ public:
 	void Update(float dt);
 	bool CleanUp();
 
-	void CreateComponent(ComponentType type, Mesh* mesh);
+	void CreateComponent(ComponentType type, Mesh* mesh = nullptr, Texture* texture = nullptr);
 
-	void AddMesh(ComponentType type, Mesh* mesh);
+	Component* AddMesh(ComponentType type, Mesh* mesh, Component* component);
+	Component* AddTexture(ComponentType type, Texture* texture, Component* component);
 
 	std::vector<Component*> GetComponents();
 

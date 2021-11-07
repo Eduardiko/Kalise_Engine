@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Texture.h"
 #include "glmath.h"
 #include <vector>
 
@@ -10,9 +11,9 @@ public:
 	Mesh();
 	virtual	~Mesh();
 
-	void InitBuffers();
+	void InitBuffers(Texture* texture);
 
-	virtual void Render() const;
+	virtual void Render(Texture* texture) const;
 	virtual void InnerRender() const;
 	void DrawVertexNormals() const;
 	void DrawFaceNormals() const;
@@ -22,7 +23,7 @@ public:
 
 	void DrawVertices() const;
 	void DrawNormals() const;
-	void DrawTexture() const;
+	void DrawTexture(Texture* texture) const;
 	void BindIndices() const;
 	void ApplyTransform() const;
 	void DrawElements() const;
@@ -38,9 +39,8 @@ public:
 	unsigned int normalsBuffer = 0;
 	float* normals = nullptr;
 
-	unsigned int textureID = -1;
-	unsigned int textureBuffer = 0;
 	float* textureCoordinates = nullptr;
+	Texture* texture = nullptr;
 
 	mat4x4 transform;
 	bool wire;

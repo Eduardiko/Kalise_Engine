@@ -5,6 +5,7 @@
 
 class Application;
 class GameObject;
+class Texture;
 
 class BaseScene : public Module {
 public:
@@ -25,6 +26,8 @@ public:
 	std::vector<GameObject*> objectList;
 
 	GameObject* parent = nullptr;
+
+	Texture* tempTexture;
 private:
 
 };

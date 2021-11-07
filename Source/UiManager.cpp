@@ -164,8 +164,8 @@ bool UiManager::CleanUp()
 void UiManager::LoadScene(const char* path, const char* name)
 {
 
-	//if (currentScene == nullptr) currentScene = new Scene();
-	//App->importer->ImportScene("Assets/BakerHouse.fbx");
+	/*if (currentScene == nullptr) currentScene = new Scene();
+	App->importer->ImportScene("Assets/BakerHouse.fbx");
 
 	std::vector<Mesh*> meshList = App->importer->ImportScene(path);
 	GameObject* object = new GameObject(name);
@@ -184,7 +184,7 @@ void UiManager::LoadScene(const char* path, const char* name)
 			if (component->GetType() == ComponentType::MESH)
 				component->GetMesh()->InitBuffers();
 		}
-	}
+	}*/
 }
 
 void UiManager::MainMenuTest()

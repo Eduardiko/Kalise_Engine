@@ -121,7 +121,7 @@ update_status ModuleInput::PreUpdate(float dt)
 				if (!filePath.empty())
 				{
 					if (filePath.find(".fbx") != std::string::npos)
-						App->ui->LoadScene(filePath.c_str(), "Mesh");
+						App->ui->LoadScene(filePath.c_str(), "Object");
 				}
 
 				break;

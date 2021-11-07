@@ -1,12 +1,13 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "BaseScene.h"
 #include "UiConfiguration.h"
 #include <gl/GL.h>
 
 UiConfiguration::UiConfiguration(Application* app_, bool start_enabled) : UiWindow(app, start_enabled)
 {
-	app = app_;
+	App = app_;
 }
 
 // Destructor
@@ -68,16 +69,15 @@ update_status UiConfiguration::Update(float dt)
 	
 	if (ImGui::BeginMenu("Options"))
 	{
-		if (ImGui::MenuItem("Set Defaults"))
-		{
 
-		}
-		if (ImGui::MenuItem("Load"))
+		if (ImGui::BeginMenu("Load"))
 		{
+			if (ImGui::MenuItem("Baker House"))
+				App->ui->LoadScene("Assets/BakerHouse.fbx", "Baker House");
 
-		}
-		if (ImGui::MenuItem("Save"))
-		{
+			if (ImGui::MenuItem("Warrior"))
+				App->ui->LoadScene("Assets/warrior.fbx", "Warrior");
+			ImGui::EndMenu();
 
 		}
 
@@ -86,36 +86,6 @@ update_status UiConfiguration::Update(float dt)
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
-		//Buttons For Texture, Lightning... config
-		/*ImGui::BeginTabBar("Pana");
-		if (ImGui::BeginTabItem("Open GL"))
-		{
-			static bool depth = true;
-			static bool cull = true;
-			static bool lighting = true;
-			static bool materialColor = true;
-			static bool texture2D = true;
-
-			ImGui::Checkbox("GL_DEPTH_TEST", &depth);
-			ImGui::Checkbox("GL_CULL_FACE", &cull);
-			ImGui::Checkbox("GL_LIGHTING", &lighting);
-			ImGui::Checkbox("GL_COLOR_MATERIAL", &materialColor);
-			ImGui::Checkbox("GL_TEXTURE_2D", &texture2D);
-
-			if (!depth)
-				glDisable(GL_DEPTH_TEST);
-			if (!cull)
-				glDisable(GL_CULL_FACE);
-			if (!lighting)
-				glDisable(GL_LIGHTING);
-			if (!materialColor)
-				glDisable(GL_COLOR_MATERIAL);
-			if (!texture2D)
-				glDisable(GL_TEXTURE_2D);
-
-			ImGui::EndTabItem();
-		}
-		ImGui::EndTabBar();*/
 		
 		ImGui::Checkbox("Active", &activeBox);
 
@@ -224,11 +194,16 @@ update_status UiConfiguration::Update(float dt)
 		ImGui::PopStyleColor();
 
 		ImGui::Separator();
+		//uint vendorId, deviceId;
+		//char brand[250];
+		//float videoMemBudget, videoMemCurrent, videoMemAvailable, videoMemReserved;
+		////App->GetGPU(vendorId, deviceId, brand, videoMemBudget, videoMemCurrent, videoMemAvailable, videoMemReserved);
 
-		ImGui::Text("GPU:", SDL_GetSystemRAM());
+		ImGui::Text("GPU:");
+		ImGui::Text(" Vendor:   Device: ");
 		ImGui::SameLine();
+		ImGui::Text("Brand: ");
 
-		ImGui::Text("Brand:", SDL_GetSystemRAM());
 
 		ImGui::Text("VRAM Budget:", SDL_GetSystemRAM());
 
