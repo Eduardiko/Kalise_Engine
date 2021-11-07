@@ -7,7 +7,7 @@
 
 // ------------------------------------------------------------
 Mesh::Mesh() : transform(IdentityMatrix), wire(false), vertexBuffer(-1), vertexCount(-1), vertices(nullptr), indexBuffer(-1), indexCount(-1), indices(nullptr),
-normalsBuffer(-1)
+normalsBuffer(-1), textureBuffer(-1), textureID(-1), textureCoordinates(nullptr), normals(nullptr), texture(nullptr), drawFaceNormals(false), drawVertexNormals(false)
 {
 }
 
@@ -30,6 +30,7 @@ Mesh::~Mesh()
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDeleteBuffers(1, &textureBuffer);
+	glDeleteTextures(1, &textureID);
 }
 
 void Mesh::InitBuffers()
@@ -54,26 +55,15 @@ void Mesh::InitBuffers()
 	glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCount * 2, textureCoordinates, GL_STATIC_DRAW);
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	
 }
 
 void Mesh::Render() const
 {
-	//textures
-	//glBindBuffer(GL_ARRAY_BUFFER, textureBuf);
-	//glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-	//glBindTexture(GL_TEXTURE_2D, textureID);
-
 	InitRender();
 	DrawVertices();
 	DrawNormals();
-	//DrawTexture();
+	DrawTexture();
 	BindIndices();
 	ApplyTransform();
 	DrawElements();
@@ -180,9 +170,9 @@ void Mesh::DrawNormals() const
 
 void Mesh::DrawTexture() const
 {
-	/*glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-	glBindTexture(GL_TEXTURE_2D, gameObject->texture->textureId);*/
+	glBindTexture(GL_TEXTURE_2D, textureID);
 }
 
 void Mesh::BindIndices() const
@@ -200,4 +190,24 @@ void Mesh::ApplyTransform() const
 void Mesh::DrawElements() const
 {
 	glDrawElements(GL_TRIANGLES, indexCount, GL_UNSIGNED_INT, NULL);
+}
+
+void Mesh::SetTexture(Texture* texture)
+{
+	if (texture != nullptr && texture->data != nullptr)
+	{
+		this->texture = texture;
+		glGenTextures(1, &textureID);
+		glBindTexture(GL_TEXTURE_2D, textureID);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, texture->data);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
 }

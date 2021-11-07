@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Texture.h"
 #include "glmath.h"
 #include <vector>
 
@@ -26,6 +27,9 @@ public:
 	void BindIndices() const;
 	void ApplyTransform() const;
 	void DrawElements() const;
+
+	void SetTexture(Texture* texture);
+
 public:
 	unsigned int indexBuffer = 0;
 	int indexCount = -1;
@@ -41,6 +45,7 @@ public:
 	unsigned int textureID = -1;
 	unsigned int textureBuffer = 0;
 	float* textureCoordinates = nullptr;
+	Texture* texture = nullptr;
 
 	mat4x4 transform;
 	bool wire;

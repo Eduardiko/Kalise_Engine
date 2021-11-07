@@ -5,6 +5,7 @@
 
 class Application;
 class aiMesh;
+class aiScene;
 
 class ModuleImporter : public Module
 {
@@ -18,6 +19,9 @@ public:
 
 	std::vector<Mesh*> ImportScene(const char* path);
 	Mesh* ImportModel(aiMesh* aimesh);
+
+	Texture* LoadTexture(const char* path, const char* name);
+	Texture* LoadTexture(const aiScene* scene, aiMesh* mesh, const char* path, const char* name);
 
 	std::vector<Mesh*> meshList;
 

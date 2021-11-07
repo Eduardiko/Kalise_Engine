@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "BaseScene.h"
 #include "GameObject.h"
+#include "glew.h"
 
 BaseScene::BaseScene(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -21,8 +22,9 @@ bool BaseScene::Init()
 
 bool BaseScene::Start()
 {
-	App->ui->LoadScene("Assets/BakerHouse.fbx", "Baker House");
-	App->ui->LoadScene("Assets/warrior.fbx", "Warrior");
+	//App->ui->LoadScene("Assets/BakerHouse.fbx", "Baker House");
+
+	glEnable(GL_TEXTURE_2D);
 
 	return true;
 }
