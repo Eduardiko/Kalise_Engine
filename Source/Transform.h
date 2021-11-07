@@ -1,11 +1,10 @@
 #pragma once
 
-#include "Component.h"
-
+#include "MathGeoLib.h"
 
 class Gameobject;
 
-class Transform : public Component
+class Transform
 {
 public:
 	Transform(bool active = true);

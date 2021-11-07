@@ -33,3 +33,11 @@ Mesh* Component::GetMesh()
 { 
 	return mesh; 
 }
+
+void Component::AddTransform()
+{
+	Transform* transform_ = new Transform();
+
+	transform = transform_;
+
+}

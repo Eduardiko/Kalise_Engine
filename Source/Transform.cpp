@@ -1,9 +1,7 @@
 #include "Transform.h"
 
-Transform::Transform(bool active) : Component(type, active)
+Transform::Transform(bool active)
 {
-	type = ComponentType::TRANSFORM;
-
 	position.x = 0;
 	position.y = 0;
 	position.z = 0;
@@ -18,10 +16,8 @@ Transform::Transform(bool active) : Component(type, active)
 	transformMatrix = lTransform;
 }
 
-Transform::Transform(float3 position_, Quat rotation_, float3 scale_, bool active) : Component(type, active)
+Transform::Transform(float3 position_, Quat rotation_, float3 scale_, bool active)
 {
-	type = ComponentType::TRANSFORM;
-
 	position.x = position_.x;
 	position.y = position_.y;
 	position.z = position_.z;

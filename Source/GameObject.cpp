@@ -42,7 +42,9 @@ void GameObject::CreateComponent(ComponentType type, Mesh* mesh)
 	{
 	case TRANSFORM:
 	{
-		component = new Transform();
+		component = new Component(type);
+		component->AddTransform();
+
 		break;
 	}
 	case MESH:

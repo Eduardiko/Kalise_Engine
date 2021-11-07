@@ -44,31 +44,39 @@ update_status UiObjects::Update(float dt)
 	{
 		for (int i = 0; i < tmpList.size(); i++)
 		{
-			/*std::vector<Component*> pan = tmpList[i]->GetComponents();
-			
-			for (int i = 0; i < pan.size(); i++)
+			for (auto component : tmpList[i]->GetComponents())
 			{
-				if (pan[i]->GetType() == ComponentType::TRANSFORM)
+				if (component->type == ComponentType::TRANSFORM)
 				{
-					pan[i]->transform->GetPos();
+					if (i == 0)
+						ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+
+					if (ImGui::TreeNode((void*)(intptr_t)i, tmpList[i]->name.c_str(), i))
+					{
+						float3 position = component->transform->GetPos();
+						ImGui::Text(" Position    X: %d", (int)position.x);
+						ImGui::SameLine();
+						ImGui::Text("Y: %d", (int)position.y);
+						ImGui::SameLine();
+						ImGui::Text("Z: %d", (int)position.z);
+
+						Quat rotation = component->transform->GetRot();
+						ImGui::Text(" Rotation    X: %d", (int)rotation.x);
+						ImGui::SameLine();
+						ImGui::Text("Y: %d", (int)rotation.y);
+						ImGui::SameLine();
+						ImGui::Text("Z: %d", (int)rotation.z);
+
+						float3 scale = component->transform->GetScale();
+						ImGui::Text(" Scale       X: %d", (int)scale.x);
+						ImGui::SameLine();
+						ImGui::Text("Y: %d", (int)scale.y);
+						ImGui::SameLine();
+						ImGui::Text("Z: %d", (int)scale.z);
+
+						ImGui::TreePop();
+					}
 				}
-			}*/
-
-			// Use SetNextItemOpen() so set the default state of a node to be open. We could
-			// also use TreeNodeEx() with the ImGuiTreeNodeFlags_DefaultOpen flag to achieve the same thing!
-			if (i == 0)
-				ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-
-			if (ImGui::TreeNode((void*)(intptr_t)i, tmpList[i]->name.c_str(), i))
-			{
-				ImGui::Text("POS X: ");
-				ImGui::SameLine();
-				ImGui::Text("POS Y:");
-				ImGui::SameLine();
-				ImGui::Text("POS Z:");
-
-
-				ImGui::TreePop();
 			}
 		}
 		ImGui::TreePop();

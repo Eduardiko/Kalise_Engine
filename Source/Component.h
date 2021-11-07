@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "MathGeoLib.h"
 #include "Mesh.h"
+#include "Transform.h"
 
 class GameObject;
 
@@ -30,10 +31,12 @@ public:
 	Mesh* GetMesh();
 	ComponentType GetType() { return type; }
 
+	void AddTransform();
 
 	GameObject* parent;
 	ComponentType type;
 	Mesh* mesh;
+	Transform* transform;
 
 	bool active;
 private:
