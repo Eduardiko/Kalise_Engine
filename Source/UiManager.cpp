@@ -173,8 +173,18 @@ void UiManager::LoadScene(const char* path, const char* name)
 	for (int i = 0; i < meshList.size(); i++) {
 			object->CreateComponent(ComponentType::MESH, meshList[i]);
 	}
-
+		
 	App->scene->objectList.push_back(object);
+
+	for (int i = 0; i < App->scene->objectList.size(); i++) {
+		for (auto component : App->scene->objectList[i]->GetComponents())
+		{
+			App->scene->parent = App->scene->objectList[i];
+
+			if (component->GetType() == ComponentType::MESH)
+				component->GetMesh()->InitBuffers();
+		}
+	}
 }
 
 void UiManager::MainMenuTest()

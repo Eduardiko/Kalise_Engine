@@ -6,6 +6,7 @@
 
 ModuleInput::ModuleInput(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
+	App = app;
 	keyboard = new KEY_STATE[MAX_KEYS];
 	memset(keyboard, KEY_IDLE, sizeof(KEY_STATE) * MAX_KEYS);
 	memset(mouse_buttons, KEY_IDLE, sizeof(KEY_STATE) * MAX_MOUSE_BUTTONS);
@@ -110,6 +111,20 @@ update_status ModuleInput::PreUpdate(float dt)
 			{
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
+				break;
+			}
+
+			case SDL_DROPFILE:
+			{
+				std::string filePath;
+				filePath.assign(e.drop.file);
+				if (!filePath.empty())
+				{
+					if (filePath.find(".fbx") != std::string::npos)
+						App->ui->LoadScene(filePath.c_str(), "Mesh");
+				}
+
+				break;
 			}
 		}
 	}
