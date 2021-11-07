@@ -1,11 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleImporter.h"
-#include "GameObject.h"
-
-#include "il.h"
-#include "ilu.h"
-#include "ilut.h"
+//#include "glew.h"
 
 #include "scene.h"
 #include "cimport.h"
@@ -23,12 +19,6 @@ bool ModuleImporter::Init()
 {
 	bool ret = true;
 
-	// DevIL
-	ilInit();
-	iluInit();
-	ilutInit();
-	ilutRenderer(ILUT_OPENGL);
-
 	return ret;
 }
 
@@ -45,25 +35,17 @@ bool ModuleImporter::CleanUp()
 	return true;
 }
 
-std::vector<Mesh*> ModuleImporter::ImportScene(const char* path, const char* name)
+std::vector<Mesh*> ModuleImporter::ImportScene(const char* path)
 {
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		GameObject* object = new GameObject(name);
-		Texture* texture = nullptr;
+		
 		// Use scene->mNumMeshes to iterate on scene->mMeshes array
 		for (uint i = 0; i < scene->mNumMeshes; i++)
 		{
 			Mesh* mesh = ImportModel(scene->mMeshes[i]);
-			object->CreateComponent(ComponentType::MESH, meshList[i]);
-			texture = ImportTexture(scene, scene->mMeshes[i], "Assets/BakerHouse.png", name);
 		}
-
-		object->CreateComponent(ComponentType::TEXTURE, nullptr, texture);
-
-		App->scene->objectList.push_back(object);
-
 		aiReleaseImport(scene);
 	}
 	else
@@ -128,65 +110,4 @@ Mesh* ModuleImporter::ImportModel(aiMesh* aiMesh)
 	}
 
 	return nullptr;
-}
-
-Texture* ModuleImporter::LoadTexture(const char* path, const char* name)
-{
-	uint id = 0;
-	ilGenImages(1, &id);
-	ilBindImage(id);
-
-	ilEnable(IL_ORIGIN_SET);
-	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
-
-	Texture* texture = new Texture();
-
-	if (ilLoadImage(path))
-	{
-		if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
-		{
-			ILenum error = ilGetError();
-
-			if (error != IL_NO_ERROR)
-			{
-				int i = 0;
-				i++;
-			}
-			else
-			{
-				texture->id = id;
-				texture->name = name;
-				texture->data = ilGetData();
-				texture->width = ilGetInteger(IL_IMAGE_WIDTH);
-				texture->height = ilGetInteger(IL_IMAGE_HEIGHT);
-				texture->format = texture->formatUnsigned = ilGetInteger(IL_IMAGE_FORMAT);
-				texture->path = path;
-			}
-		}
-		else
-		{
-			
-		}
-	}
-	else
-	{
-		
-	}
-
-	return texture;
-}
-
-Texture* ModuleImporter::ImportTexture(const aiScene* scene, aiMesh* mesh, const char* path, const char* name)
-{
-	aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-	aiString texPath;
-	aiGetMaterialTexture(material, aiTextureType::aiTextureType_DIFFUSE, mesh->mMaterialIndex, &texPath);
-
-	Texture* texture = new Texture();
-
-
-	texture = LoadTexture(path, name);
-
-	return texture;
-
 }

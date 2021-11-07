@@ -6,7 +6,7 @@
 GameObject::GameObject(std::string name_, bool active)
 {
 	name = name_;
-	CreateComponent(ComponentType::TRANSFORM);
+	CreateComponent(ComponentType::TRANSFORM, nullptr);
 
 }
 
@@ -33,7 +33,7 @@ bool GameObject::CleanUp()
 	return false;
 }
 
-void GameObject::CreateComponent(ComponentType type, Mesh* mesh, Texture* texture)
+void GameObject::CreateComponent(ComponentType type, Mesh* mesh)
 {
 	Component* component = nullptr;
 
@@ -48,12 +48,14 @@ void GameObject::CreateComponent(ComponentType type, Mesh* mesh, Texture* textur
 	}
 	case MESH:
 	{
-		component = AddMesh(type, mesh, component);
+		AddMesh(type, mesh);
 		break;
 	}
-	case TEXTURE:
+	case MATERIAL:
 	{
-		component = AddTexture(type, texture, component);
+		/*c = new Material();
+		Material* m = (Material*)c;
+		m->SetTexture(nullptr);*/
 		break;
 	}
 	default:
@@ -69,17 +71,10 @@ void GameObject::CreateComponent(ComponentType type, Mesh* mesh, Texture* textur
 
 }
 
-Component* GameObject::AddMesh(ComponentType type, Mesh* mesh, Component* component)
+void GameObject::AddMesh(ComponentType type, Mesh* mesh)
 {
-	component = new Component(type, mesh, nullptr);
-	return component;
-}
-
-Component* GameObject::AddTexture(ComponentType type, Texture* texture, Component* component)
-{
-	component = new Component(type, nullptr, texture);
-	return component;
-
+	Component* component = new Component(type, mesh);
+	componentList.push_back(component);
 }
 
 std::vector<Component*> GameObject::GetComponents() {

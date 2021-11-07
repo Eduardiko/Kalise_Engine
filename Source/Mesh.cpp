@@ -1,14 +1,13 @@
 #include "Globals.h"
 #include "Mesh.h"
 
-
 #include "glew.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
 // ------------------------------------------------------------
 Mesh::Mesh() : transform(IdentityMatrix), wire(false), vertexBuffer(-1), vertexCount(-1), vertices(nullptr), indexBuffer(-1), indexCount(-1), indices(nullptr),
-normalsBuffer(-1), textureCoordinates(nullptr)
+normalsBuffer(-1)
 {
 }
 
@@ -29,14 +28,11 @@ Mesh::~Mesh()
 	delete normals;
 	normals = nullptr;
 
-	delete textureCoordinates;
-	textureCoordinates = nullptr;
-
-	texture = nullptr;
-
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDeleteBuffers(1, &textureBuffer);
 }
 
-void Mesh::InitBuffers(Texture* texture)
+void Mesh::InitBuffers()
 {
 	//Vertex
 	glGenBuffers(1, (GLuint*)&vertexBuffer);
@@ -54,18 +50,30 @@ void Mesh::InitBuffers(Texture* texture)
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * indexCount, indices, GL_STATIC_DRAW);
 
 	//Textures
-	glGenBuffers(1, &texture->textureBuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, texture->textureBuffer);
+	glGenBuffers(1, &textureBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * vertexCount * 2, textureCoordinates, GL_STATIC_DRAW);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }
 
-void Mesh::Render(Texture* texture) const
+void Mesh::Render() const
 {
+	//textures
+	//glBindBuffer(GL_ARRAY_BUFFER, textureBuf);
+	//glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	//glBindTexture(GL_TEXTURE_2D, textureID);
 
 	InitRender();
 	DrawVertices();
 	DrawNormals();
-	DrawTexture(texture);
+	//DrawTexture();
 	BindIndices();
 	ApplyTransform();
 	DrawElements();
@@ -155,6 +163,7 @@ void Mesh::EndRender() const
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
 void Mesh::DrawVertices() const
@@ -169,12 +178,11 @@ void Mesh::DrawNormals() const
 	glNormalPointer(GL_FLOAT, 0, NULL);
 }
 
-void Mesh::DrawTexture(Texture* texture) const
+void Mesh::DrawTexture() const
 {
-	texture->textureBuffer = 4294967295;
-	glBindBuffer(GL_ARRAY_BUFFER, texture->textureBuffer);
+	/*glBindBuffer(GL_ARRAY_BUFFER, textureBuffer);
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-	glBindTexture(GL_TEXTURE_2D, texture->id);
+	glBindTexture(GL_TEXTURE_2D, gameObject->texture->textureId);*/
 }
 
 void Mesh::BindIndices() const
