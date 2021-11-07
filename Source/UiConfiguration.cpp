@@ -30,6 +30,8 @@ bool UiConfiguration::Start()
 	
 	fpsCounter = 0;
 
+	active = false;
+
 	return ret;
 }
 
@@ -48,6 +50,8 @@ update_status UiConfiguration::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 	
+	if (!active) return ret;
+
 	if (fpsCounter < 99)
 		fpsCounter++;
 	else
@@ -258,6 +262,11 @@ bool UiConfiguration::CleanUp()
 
 
 	return ret;
+}
+
+void UiConfiguration::swapActive()
+{
+	active = !active;
 }
 
 void UiConfiguration::getCaps(bool& threeD, bool& altiVec, bool& avx, bool& avx2, bool& mmx, bool& rdtsc, bool& sse, bool& sse2, bool& sse3, bool& sse41, bool& sse42)

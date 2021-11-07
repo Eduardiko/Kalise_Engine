@@ -109,6 +109,10 @@ update_status UiManager::Update(float dt)
 
 	//MainMenuTest();
 
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) config->active = !config->active;
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) objects->active = !objects->active;
+
+
 	return ret;
 }
 
@@ -157,21 +161,20 @@ bool UiManager::CleanUp()
     return ret;
 }
 
-void UiManager::LoadScene(const char* path)
+void UiManager::LoadScene(const char* path, const char* name)
 {
 
 	//if (currentScene == nullptr) currentScene = new Scene();
 	//App->importer->ImportScene("Assets/BakerHouse.fbx");
 
 	std::vector<Mesh*> meshList = App->importer->ImportScene(path);
+	GameObject* object = new GameObject(name);
+
 	for (int i = 0; i < meshList.size(); i++) {
-
-
-			GameObject* object = new GameObject("Baker House");
 			object->CreateComponent(ComponentType::MESH, meshList[i]);
-			App->scene->objectList.push_back(object);
-
 	}
+
+	App->scene->objectList.push_back(object);
 }
 
 void UiManager::MainMenuTest()

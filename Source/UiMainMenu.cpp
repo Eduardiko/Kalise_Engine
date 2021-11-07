@@ -4,6 +4,7 @@
 
 UiMainMenu::UiMainMenu(Application* app, bool start_enabled) : UiWindow(app, start_enabled)
 {
+	App = app;
 }
 
 // Destructor
@@ -46,12 +47,13 @@ update_status UiMainMenu::Update(float dt)
 		ImGui::EndMenu();
 	}
 
-	ImGui::BeginMenu("View");
-
-	/*if (ImGui::BeginMenu("View"))
+	if (ImGui::BeginMenu("View"))
 	{
-			// Here goes every window to show/not show
-	}*/
+		
+		ImGui::MenuItem("Configuration", "F1", &App->ui->config->active);
+		ImGui::MenuItem("Objects", "F2", &App->ui->objects->active);
+		ImGui::EndMenu();
+	}
 
 	if (ImGui::BeginMenu("Help"))
 	{

@@ -32,7 +32,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void LoadScene(const char* path);
+	void LoadScene(const char* path, const char* name);
 
 	void MainMenuTest();
 

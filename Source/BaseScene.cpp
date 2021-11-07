@@ -21,12 +21,15 @@ bool BaseScene::Init()
 
 bool BaseScene::Start()
 {
-	App->ui->LoadScene("Assets/BakerHouse.fbx");
+	App->ui->LoadScene("Assets/BakerHouse.fbx", "Baker House");
+	App->ui->LoadScene("Assets/warrior.fbx", "Warrior");
 
 
 	for (int i = 0; i < objectList.size(); i++) {
 		for (auto component : objectList[i]->GetComponents())
 		{
+			parent = objectList[i];
+
 			if (component->GetType() == ComponentType::MESH)
 				component->GetMesh()->InitBuffers();
 		}

@@ -94,10 +94,10 @@ update_status ModuleCamera3D::Update(float dt)
 		}
 
 		Position = Reference + Z * distance;
-
+	
 	}
 
-	float zoomDist = 1.0f * dt;
+	float zoomDist = 0.8f * dt;
 	if (App->input->GetMouseZ() > 0)
 	{
 		distance -= zoomDist;
@@ -107,6 +107,29 @@ update_status ModuleCamera3D::Update(float dt)
 	{
 		distance += zoomDist;
 		Position = Reference + Z * distance;
+	}
+
+
+	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
+	{
+		/*std::vector<Component*> components = App->scene->parent->GetComponents();
+		for (int i = 0; i < components.size(); i++)
+		{
+			if (components[i]->type == ComponentType::TRANSFORM)
+			{
+				float3 lookAtPos = components[i]->transform->GetPos();
+				vec3 lookAtPosVec;
+
+				lookAtPosVec.x = lookAtPos.x;
+				lookAtPosVec.y = lookAtPos.y;
+				lookAtPosVec.z = lookAtPos.z;
+
+				LookAt(lookAtPosVec);
+			}
+		LookAt(lookAtPos);
+		}*/
+		vec3 lookAtPos(0.0f, 0.0f, 0.0f);
+		Look(Position, lookAtPos, true);
 	}
 
 	// Recalculate matrix -------------
@@ -142,6 +165,9 @@ void ModuleCamera3D::LookAt( const vec3 &Spot)
 	Z = normalize(Position - Reference);
 	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
 	Y = cross(Z, X);
+
+	Reference = Position;
+	Position += Z * 0.05f;
 
 	CalculateViewMatrix();
 }

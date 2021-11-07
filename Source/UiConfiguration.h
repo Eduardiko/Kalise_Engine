@@ -22,6 +22,7 @@ public:
 
 	bool CleanUp();
 
+	void swapActive();
 
 public:
 	bool active;

@@ -3,7 +3,6 @@
 #include "Application.h"
 
 
-
 GameObject::GameObject(std::string name_, bool active)
 {
 	name = name_;

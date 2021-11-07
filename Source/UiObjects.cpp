@@ -19,6 +19,8 @@ bool UiObjects::Start()
 {
 	bool ret = true;
 
+	active = false;
+
 	return ret;
 }
 
@@ -33,6 +35,8 @@ update_status UiObjects::PreUpdate(float dt)
 update_status UiObjects::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
+
+	if (!active) return ret;
 
 	ImGui::Begin("Objects");
 	

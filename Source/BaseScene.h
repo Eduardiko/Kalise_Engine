@@ -24,7 +24,7 @@ public:
 
 	std::vector<GameObject*> objectList;
 
-private:
 	GameObject* parent = nullptr;
+private:
 
 };

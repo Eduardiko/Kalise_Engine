@@ -45,8 +45,6 @@ std::vector<Mesh*> ModuleImporter::ImportScene(const char* path)
 		for (uint i = 0; i < scene->mNumMeshes; i++)
 		{
 			Mesh* mesh = ImportModel(scene->mMeshes[i]);
-			if (mesh != nullptr) meshList.push_back(mesh);
-
 		}
 		aiReleaseImport(scene);
 	}
