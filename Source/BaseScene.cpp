@@ -22,7 +22,7 @@ bool BaseScene::Init()
 
 bool BaseScene::Start()
 {
-	//App->ui->LoadScene("Assets/BakerHouse.fbx", "Baker House");
+	App->ui->LoadScene("Assets/BakerHouse.fbx", "Baker House");
 
 	glEnable(GL_TEXTURE_2D);
 
