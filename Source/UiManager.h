@@ -11,6 +11,7 @@
 
 #include "UiMainMenu.h"
 #include "UiConfiguration.h"
+#include "UiObjects.h"
 
 class Application;
 class GameObject;
@@ -46,6 +47,7 @@ public:
 
 	UiMainMenu* mainMenu;
 	UiConfiguration* config;
+	UiObjects* objects;
 
 	std::vector<GameObject*> objectList;
 

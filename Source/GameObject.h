@@ -24,11 +24,11 @@ public:
 	std::vector<Component*> GetComponents();
 
 	std::vector<Component*> componentList;
+	GameObject* parent = nullptr;
+	std::string name;
 private:
 
 	bool active;
-	std::string name;
 
-	GameObject* parent = nullptr;
 	std::vector<GameObject*> childrenList;
 };

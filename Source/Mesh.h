@@ -1,7 +1,6 @@
 #pragma once
 
 #include "glmath.h"
-//#include "Color.h"
 #include <vector>
 
 class Mesh

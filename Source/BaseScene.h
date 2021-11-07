@@ -18,6 +18,8 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
+	std::vector<GameObject*> GetObjectList();
+
 	bool CleanUp();
 
 	std::vector<GameObject*> objectList;

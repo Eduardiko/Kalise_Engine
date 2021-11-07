@@ -58,6 +58,11 @@ update_status BaseScene::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+std::vector<GameObject*> BaseScene::GetObjectList()
+{
+	return objectList;
+}
+
 bool BaseScene::CleanUp()
 {
 	return true;

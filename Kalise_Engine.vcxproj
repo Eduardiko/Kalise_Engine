@@ -194,6 +194,7 @@
     <ClInclude Include="External\SDL\include\SDL_video.h" />
     <ClInclude Include="External\SDL\include\SDL_vulkan.h" />
     <ClInclude Include="Source\Timer.h" />
+    <ClInclude Include="Source\UiObjects.h" />
     <ClInclude Include="Source\UiWindow.h" />
   </ItemGroup>
   <ItemGroup>
@@ -225,6 +226,7 @@
     <ClCompile Include="Source\ModuleWindow.cpp" />
     <ClCompile Include="Source\Primitive.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
+    <ClCompile Include="Source\UiObjects.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="External\SDL\include\SDL_config.h.cmake" />

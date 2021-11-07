@@ -16,9 +16,11 @@ UiManager::UiManager(Application* app, bool start_enabled) : Module(app, start_e
 {
 	mainMenu = new UiMainMenu(app, true);
 	config = new UiConfiguration(app, true);
+	objects = new UiObjects(app, true);
 
 	AddWindow(mainMenu);
 	AddWindow(config);
+	AddWindow(objects);
 
 }
 
@@ -164,12 +166,11 @@ void UiManager::LoadScene(const char* path)
 	std::vector<Mesh*> meshList = App->importer->ImportScene(path);
 	for (int i = 0; i < meshList.size(); i++) {
 
-		GameObject* object = new GameObject("BakerHouse");
-		object->CreateComponent(ComponentType::MESH, meshList[i]);
-		App->scene->objectList.push_back(object);
 
+			GameObject* object = new GameObject("Baker House");
+			object->CreateComponent(ComponentType::MESH, meshList[i]);
+			App->scene->objectList.push_back(object);
 
-		//if(meshList[i] != nullptr) meshList[i]->InitBuffers();
 	}
 }
 
