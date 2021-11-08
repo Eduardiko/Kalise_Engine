@@ -115,24 +115,15 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT && App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
-		/*std::vector<Component*> components = App->scene->parent->GetComponents();
-		for (int i = 0; i < components.size(); i++)
+		if (Y.y != 0)
 		{
-			if (components[i]->type == ComponentType::TRANSFORM)
-			{
-				float3 lookAtPos = components[i]->transform->GetPos();
-				vec3 lookAtPosVec;
-
-				lookAtPosVec.x = lookAtPos.x;
-				lookAtPosVec.y = lookAtPos.y;
-				lookAtPosVec.z = lookAtPos.z;
-
-				LookAt(lookAtPosVec);
-			}
-		LookAt(lookAtPos);
-		}*/
-		vec3 lookAtPos(0.0f, 0.0f, 0.0f);
-		Look(Position, lookAtPos, true);
+			vec3 lookAtPos(0.0f, 0.0f, 0.0f);
+			Look(Position, lookAtPos, true);
+			
+		}
+		else {
+			Y.y++;
+		}
 	}
 
 	// Recalculate matrix -------------
