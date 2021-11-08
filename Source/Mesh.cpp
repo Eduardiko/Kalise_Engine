@@ -212,6 +212,38 @@ void Mesh::SetTexture(Texture* texture)
 	}
 }
 
+void Mesh::SetDefaultTexture()
+{
+
+	GLubyte checkerTex[128][128][4];
+
+	for (int i = 0; i < 128; ++i)
+	{
+		for (int j = 0; j < 128; ++j)
+		{
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkerTex[i][j][0] = (GLubyte)c;
+			checkerTex[i][j][1] = (GLubyte)c;
+			checkerTex[i][j][2] = (GLubyte)c;
+			checkerTex[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 128, 128, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkerTex);
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+}
+
 Texture* Mesh::GetTexture()
 {
 	return texture;

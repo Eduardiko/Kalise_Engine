@@ -17,6 +17,9 @@ struct Texture
     int width = -1;
     int height = -1;
 
+    int GetWidth() { return width; }
+    int GetHeight() { return height; }
+
     ~Texture()
     {
         name.clear();

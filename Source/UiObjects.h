@@ -2,6 +2,7 @@
 
 #include "Globals.h"
 #include "Application.h"
+#include "Texture.h"
 
 #include "UiWindow.h"
 
@@ -22,8 +23,9 @@ public:
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
 
-	bool CleanUp();
+	Texture* auxiliarTexture;
 
+	bool CleanUp();
 
 public:
 	bool active;

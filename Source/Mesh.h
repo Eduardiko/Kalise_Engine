@@ -29,6 +29,7 @@ public:
 	void DrawElements() const;
 
 	void SetTexture(Texture* texture);
+	void SetDefaultTexture();
 
 	Texture* GetTexture();
 
@@ -53,4 +54,7 @@ public:
 	bool wire;
 	bool drawFaceNormals = true;
 	bool drawVertexNormals = true;
+
+	bool checkerTexture = false;
+	
 };

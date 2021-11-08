@@ -46,6 +46,7 @@ bool ModuleImporter::CleanUp()
 
 std::vector<Mesh*> ModuleImporter::ImportScene(const char* path)
 {
+	std::vector<Mesh*> meshList;
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
@@ -54,6 +55,7 @@ std::vector<Mesh*> ModuleImporter::ImportScene(const char* path)
 		for (uint i = 0; i < scene->mNumMeshes; i++)
 		{
 			Mesh* mesh = ImportModel(scene->mMeshes[i]);
+			meshList.push_back(mesh);
 			Texture* Tex = LoadTexture(scene, scene->mMeshes[i], "Assets/BakerHouse.png", "BakerHouse");
 			mesh->SetTexture(Tex);
 
@@ -110,8 +112,6 @@ Mesh* ModuleImporter::ImportModel(aiMesh* aiMesh)
 				mesh->textureCoordinates[i * 2 + 1] = aiMesh->mTextureCoords[0][i].y;
 			}
 		}
-
-		meshList.push_back(mesh);
 
 		return mesh;
 	}

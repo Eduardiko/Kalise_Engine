@@ -66,22 +66,6 @@ update_status UiConfiguration::Update(float dt)
 
 
 	ImGui::Begin("Configuration");
-	
-	if (ImGui::BeginMenu("Options"))
-	{
-		if (ImGui::BeginMenu("Load"))
-		{
-			if (ImGui::MenuItem("Baker House"))
-				App->ui->LoadScene("Assets/BakerHouse.fbx", "Baker House");
-
-			if (ImGui::MenuItem("Warrior"))
-				App->ui->LoadScene("Assets/warrior.fbx", "Warrior");
-			ImGui::EndMenu();
-
-		}
-
-		ImGui::EndMenu();
-	}
 
 	if (ImGui::CollapsingHeader("Application"))
 	{
@@ -115,6 +99,48 @@ update_status UiConfiguration::Update(float dt)
 		title += std::to_string(1000.0f / ImGui::GetIO().Framerate);
 		ImGui::PlotHistogram("##milliseconds", &ms_log[0], ms_log.size(), 0, title.c_str(), 0.0f, 40.0f, ImVec2(310.0f, 100.0f));
 
+		
+		ImGui::Text("Mouse Pos X: %d", app->input->GetMouseX());
+		ImGui::Text("Mouse Pos Y: %d", app->input->GetMouseY());
+
+		if (ImGui::BeginMenu("Open GL"))
+		{
+			static bool depth = true;
+			static bool cull = true;
+			static bool lighting = true;
+			static bool materialColor = true;
+			static bool texture2D = true;
+			static bool wired = false;
+
+			ImGui::Checkbox("GL_DEPTH_TEST", &depth);
+			ImGui::Checkbox("GL_CULL_FACE", &cull);
+			ImGui::Checkbox("GL_LIGHTING", &lighting);
+			ImGui::Checkbox("GL_COLOR_MATERIAL", &materialColor);
+			ImGui::Checkbox("GL_TEXTURE_2D", &texture2D);
+
+			if (!depth)
+				glDisable(GL_DEPTH_TEST);
+			else
+				glEnable(GL_DEPTH_TEST);
+			if (!cull)
+				glDisable(GL_CULL_FACE);
+			else
+				glEnable(GL_CULL_FACE);
+			if (!lighting)
+				glDisable(GL_LIGHTING);
+			else
+				glEnable(GL_LIGHTING);
+			if (!materialColor)
+				glDisable(GL_COLOR_MATERIAL);
+			else
+				glEnable(GL_COLOR_MATERIAL);
+			if (!texture2D)
+				glDisable(GL_TEXTURE_2D);
+			else
+				glEnable(GL_TEXTURE_2D);
+
+			ImGui::EndMenu();
+		}
 
 	}
 	

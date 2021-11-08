@@ -1,9 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "UiObjects.h"
-#include "GameObject.h"
 #include "BaseScene.h"
-
+#include "GameObject.h"
 
 
 UiObjects::UiObjects(Application* app, bool start_enabled) : UiWindow(app, start_enabled)
@@ -48,16 +47,17 @@ update_status UiObjects::Update(float dt)
 	{
 		for (int i = 0; i < tmpList.size(); i++)
 		{
-			for (auto component : tmpList[i]->GetComponents())
+			if (ImGui::TreeNode((void*)(intptr_t)i, tmpList[i]->name.c_str(), i))
 			{
-				if (component->type == ComponentType::TRANSFORM)
+				for (auto component : tmpList[i]->GetComponents())
 				{
-					if (i == 0)
-						ImGui::SetNextItemOpen(true, ImGuiCond_Once);
-
-					if (ImGui::TreeNode((void*)(intptr_t)i, tmpList[i]->name.c_str(), i))
+					if (component->type == ComponentType::TRANSFORM)
 					{
+						if (i == 0)
+							ImGui::SetNextItemOpen(true, ImGuiCond_Once);
+
 						float3 position = component->transform->GetPos();
+						ImGui::Text(" ");
 						ImGui::Text(" Position    X: %d", (int)position.x);
 						ImGui::SameLine();
 						ImGui::Text("Y: %d", (int)position.y);
@@ -78,9 +78,34 @@ update_status UiObjects::Update(float dt)
 						ImGui::SameLine();
 						ImGui::Text("Z: %d", (int)scale.z);
 
-						ImGui::TreePop();
 					}
+					if (component->type == ComponentType::TEXTURE)
+					{
+						ImGui::Text(" ");
+						ImGui::Text(" Texture     Width: %d", component->texture->GetWidth());
+						ImGui::SameLine();
+						ImGui::Text("	Height: %d", component->texture->GetHeight());
+
+					}
+
+					if (component->type == ComponentType::MESH)
+					{
+						auxiliarTexture = component->mesh->GetTexture();
+						if (ImGui::Checkbox("CheckerBox:", &component->mesh->checkerTexture))
+						{
+							if (component->mesh->checkerTexture)
+							{
+								component->mesh->SetDefaultTexture();
+
+							}
+							else {
+								component->mesh->SetTexture(auxiliarTexture);
+							}
+						}
+					}
+						ImGui::Separator();
 				}
+						ImGui::TreePop();
 			}
 		}
 		ImGui::TreePop();

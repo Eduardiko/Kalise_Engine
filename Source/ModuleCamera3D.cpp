@@ -27,6 +27,8 @@ bool ModuleCamera3D::Start()
 	vec3 startPos(0.0f, 0.0f, 0.0f);
 	LookAt(startPos);
 
+	Reference = vec3(0.0f, 0.0f, 0.0f);
+
 	return ret;
 }
 

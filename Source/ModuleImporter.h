@@ -23,6 +23,6 @@ public:
 	Texture* LoadTexture(const char* path, const char* name);
 	Texture* LoadTexture(const aiScene* scene, aiMesh* mesh, const char* path, const char* name);
 
-	std::vector<Mesh*> meshList;
+
 
 };
