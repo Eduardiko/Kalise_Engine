@@ -60,14 +60,8 @@ update_status UiMainMenu::Update(float dt)
 		if (ImGui::MenuItem("Gui Demo"))
 			showDemo = !showDemo;
 
-		if (ImGui::MenuItem("Documentation"))
-			App->RequestBrowser("https://desktop.github.com/");
-
-		if (ImGui::MenuItem("Download Latest")) {}
-
-		if (ImGui::MenuItem("Report a bug")) {}
-
-		if (ImGui::MenuItem("About")) {}
+		if (ImGui::MenuItem("Latest Release"))
+			App->RequestBrowser("https://github.com/Eduardiko/Kalise_Engine");
 
 		ImGui::EndMenu();
 	}

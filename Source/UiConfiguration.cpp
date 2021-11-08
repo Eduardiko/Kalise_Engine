@@ -7,7 +7,7 @@
 
 UiConfiguration::UiConfiguration(Application* app_, bool start_enabled) : UiWindow(app, start_enabled)
 {
-	App = app_;
+	app = app_;
 }
 
 // Destructor

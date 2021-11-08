@@ -24,6 +24,9 @@ bool ModuleCamera3D::Start()
 	LOG("Setting up the camera");
 	bool ret = true;
 
+	vec3 startPos(0.0f, 0.0f, 0.0f);
+	LookAt(startPos);
+
 	return ret;
 }
 
