@@ -49,14 +49,15 @@ update_status UiObjects::Update(float dt)
 		{
 			if (ImGui::TreeNode((void*)(intptr_t)i, tmpList[i]->name.c_str(), i))
 			{
-				for (auto component : tmpList[i]->GetComponents())
+				std::vector<Component*> compList = tmpList[i]->GetComponents();
+				for (int j = 0; j < compList.size(); j++)
 				{
-					if (component->type == ComponentType::TRANSFORM)
+					if (compList[j]->type == ComponentType::TRANSFORM)
 					{
 						if (i == 0)
 							ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 
-						float3 position = component->transform->GetPos();
+						float3 position = compList[j]->transform->GetPos();
 						ImGui::Text(" ");
 						ImGui::Text(" Position    X: %d", (int)position.x);
 						ImGui::SameLine();
@@ -64,14 +65,14 @@ update_status UiObjects::Update(float dt)
 						ImGui::SameLine();
 						ImGui::Text("Z: %d", (int)position.z);
 
-						Quat rotation = component->transform->GetRot();
+						Quat rotation = compList[j]->transform->GetRot();
 						ImGui::Text(" Rotation    X: %d", (int)rotation.x);
 						ImGui::SameLine();
 						ImGui::Text("Y: %d", (int)rotation.y);
 						ImGui::SameLine();
 						ImGui::Text("Z: %d", (int)rotation.z);
 
-						float3 scale = component->transform->GetScale();
+						float3 scale = compList[j]->transform->GetScale();
 						ImGui::Text(" Scale       X: %d", (int)scale.x);
 						ImGui::SameLine();
 						ImGui::Text("Y: %d", (int)scale.y);
@@ -79,32 +80,34 @@ update_status UiObjects::Update(float dt)
 						ImGui::Text("Z: %d", (int)scale.z);
 
 					}
-					if (component->type == ComponentType::TEXTURE)
+					if (compList[j]->type == ComponentType::TEXTURE)
 					{
 						ImGui::Text(" ");
-						ImGui::Text(" Texture     Width: %d", component->texture->GetWidth());
+						ImGui::Text(" Texture     Width: %d", compList[j]->texture->GetWidth());
 						ImGui::SameLine();
-						ImGui::Text("	Height: %d", component->texture->GetHeight());
+						ImGui::Text("	Height: %d", compList[j]->texture->GetHeight());
 
 					}
 
-					if (component->type == ComponentType::MESH)
+					if (compList[j]->type == ComponentType::MESH)
 					{
-						auxiliarTexture = component->mesh->GetTexture();
-						if (ImGui::Checkbox("CheckerBox:", &component->mesh->checkerTexture))
+						auxiliarTexture = compList[j]->mesh->GetTexture();
+						if (ImGui::Checkbox("CheckerBox:", &compList[j]->mesh->checkerTexture))
 						{
-							if (component->mesh->checkerTexture)
+							if (compList[j]->mesh->checkerTexture)
 							{
-								component->mesh->SetDefaultTexture();
+								compList[j]->mesh->SetDefaultTexture();
 
 							}
 							else {
-								component->mesh->SetTexture(auxiliarTexture);
+								compList[j]->mesh->SetTexture(auxiliarTexture);
 							}
 						}
 					}
 						ImGui::Separator();
 				}
+
+
 						ImGui::TreePop();
 			}
 		}

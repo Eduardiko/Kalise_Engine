@@ -30,4 +30,5 @@ public:
 public:
 	bool active;
 
+	bool meshCount = 0;
 };
