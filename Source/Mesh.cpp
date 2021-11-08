@@ -211,3 +211,8 @@ void Mesh::SetTexture(Texture* texture)
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }
+
+Texture* Mesh::GetTexture()
+{
+	return texture;
+}

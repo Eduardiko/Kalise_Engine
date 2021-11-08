@@ -170,6 +170,8 @@ void UiManager::LoadScene(const char* path, const char* name)
 	for (int i = 0; i < meshList.size(); i++) {
 			object->CreateComponent(ComponentType::MESH, meshList[i]);
 	}
+
+	object->CreateComponent(ComponentType::TEXTURE, nullptr, meshList[0]->GetTexture());
 		
 	App->scene->objectList.push_back(object);
 

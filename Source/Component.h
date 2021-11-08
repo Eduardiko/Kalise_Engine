@@ -4,6 +4,7 @@
 #include "MathGeoLib.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include "Texture.h"
 
 class GameObject;
 
@@ -12,13 +13,13 @@ enum ComponentType
 	NONE,
 	TRANSFORM,
 	MESH,
-	MATERIAL
+	TEXTURE
 };
 
 class Component {
 public:
 	Component(ComponentType type, bool active = true);
-	Component(ComponentType type, Mesh* mesh, bool active = true);
+	Component(ComponentType type, Mesh* mesh = nullptr, Texture* texture = nullptr, bool active = true);
 
 	virtual ~Component();
 
@@ -37,6 +38,7 @@ public:
 	ComponentType type;
 	Mesh* mesh;
 	Transform* transform;
+	Texture* texture;
 
 	bool active;
 private:

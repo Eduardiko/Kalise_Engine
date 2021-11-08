@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleImporter.h"
+#include "GameObject.h"
 //#include "glew.h"
 #include "il.h"
 #include "ilu.h"
@@ -55,14 +56,10 @@ std::vector<Mesh*> ModuleImporter::ImportScene(const char* path)
 			Mesh* mesh = ImportModel(scene->mMeshes[i]);
 			Texture* Tex = LoadTexture(scene, scene->mMeshes[i], "Assets/BakerHouse.png", "BakerHouse");
 			mesh->SetTexture(Tex);
+
 		}
 		aiReleaseImport(scene);
 	}
-	else
-	{
-		//LOG missing
-	}
-
 
 	return meshList;
 }

@@ -30,6 +30,8 @@ public:
 
 	void SetTexture(Texture* texture);
 
+	Texture* GetTexture();
+
 public:
 	unsigned int indexBuffer = 0;
 	int indexCount = -1;
