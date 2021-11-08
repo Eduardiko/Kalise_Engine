@@ -25,7 +25,6 @@ public:
 	void swapActive();
 
 public:
-	bool active;
 	bool showConfig;
 
 	bool activeBox;

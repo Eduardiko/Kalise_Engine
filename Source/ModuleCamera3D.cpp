@@ -114,7 +114,6 @@ update_status ModuleCamera3D::Update(float dt)
 		{
 			vec3 lookAtPos(0.0f, 0.0f, 0.0f);
 			Look(Position, lookAtPos, true);
-			
 		}
 		else {
 			Y.y++;

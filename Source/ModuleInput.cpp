@@ -121,9 +121,19 @@ update_status ModuleInput::PreUpdate(float dt)
 				if (!filePath.empty())
 				{
 					if (filePath.find(".fbx") != std::string::npos)
-						App->ui->LoadScene(filePath.c_str(), "Mesh");
+					{
+						if (filePath.find("Warrior") != std::string::npos)
+						{
+							const char* fileName = "Warrior";
+							App->ui->LoadScene(filePath.c_str(), fileName);
+						}
+						if (filePath.find("BakerHouse") != std::string::npos)
+						{
+							const char* fileName = "Baker House";
+							App->ui->LoadScene(filePath.c_str(), fileName);
+						}
+					}
 				}
-
 				break;
 			}
 		}

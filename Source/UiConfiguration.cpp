@@ -70,8 +70,6 @@ update_status UiConfiguration::Update(float dt)
 	if (ImGui::CollapsingHeader("Application"))
 	{
 	
-		ImGui::Checkbox("Active", &activeBox);
-
 		static char name[50] = "";
 		strcpy_s(name, 50, app->GetName(0));
 		ImGui::InputText("App Name", name, IM_ARRAYSIZE(name));
@@ -150,7 +148,6 @@ update_status UiConfiguration::Update(float dt)
 	if (ImGui::CollapsingHeader("Window"))
 	{
 			
-		ImGui::Checkbox("Active", &activeBox);
 		ImGui::Text("Icon:");
 		ImGui::SliderInt("Brightness", &initialBrightness, 0, 10);
 		ImGui::SliderInt("Width", &app->window->screen_surface->w, 0, 1920);
@@ -183,8 +180,6 @@ update_status UiConfiguration::Update(float dt)
 
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
-		ImGui::Checkbox("Active", &activeBox);
-
 		SDL_version v;
 		SDL_GetVersion(&v);
 		int major, minor, patch;
