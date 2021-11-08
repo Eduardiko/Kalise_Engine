@@ -29,7 +29,7 @@ public:
 	void DrawElements() const;
 
 	void SetTexture(Texture* texture);
-	void SetDefaultTexture();
+	void SetCheckerBoxTexture();
 
 	Texture* GetTexture();
 

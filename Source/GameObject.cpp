@@ -7,7 +7,6 @@ GameObject::GameObject(std::string name_, bool active)
 {
 	name = name_;
 	CreateComponent(ComponentType::TRANSFORM);
-
 }
 
 GameObject::~GameObject()

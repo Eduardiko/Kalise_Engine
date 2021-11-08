@@ -10,9 +10,9 @@ BaseScene::BaseScene(Application* app, bool start_enabled) : Module(app, start_e
 
 BaseScene::~BaseScene()
 {
-	/*for (int i = 0; i < objectList.size(); i++) {
+	for (int i = 0; i < objectList.size(); i++) {
 		delete objectList[i];
-	}*/
+	}
 }
 
 bool BaseScene::Init()

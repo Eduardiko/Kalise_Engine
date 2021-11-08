@@ -93,7 +93,7 @@ update_status UiObjects::Update(float dt)
 							{
 								if (compList[j]->mesh->checkerTexture)
 								{
-									compList[j]->mesh->SetDefaultTexture();
+									compList[j]->mesh->SetCheckerBoxTexture();
 									if(compList[j + 1] != nullptr && compList[j + 1]->type == ComponentType::MESH) compList[j + 1]->mesh->checkerTexture = true;
 								}
 								else {
@@ -105,16 +105,36 @@ update_status UiObjects::Update(float dt)
 
 						if (j != 1 && compList[j]->mesh->checkerTexture)
 						{
-							compList[j]->mesh->SetDefaultTexture();
+							compList[j]->mesh->SetCheckerBoxTexture();
+
+							for (int k = 0; k < compList.size(); k++)
+							{
+								if (compList[k]->type == ComponentType::TEXTURE)
+								{
+									compList[k]->texture->SetWidth(128);
+									compList[k]->texture->SetHeight(128);
+								}
+							}
+
 						}
 						else if (j != 1) 
 						{
 							compList[j]->mesh->SetTexture(auxiliarTexture);
+
+							for (int k = 0; k < compList.size(); k++)
+							{
+								if (compList[k]->type == ComponentType::TEXTURE)
+								{
+									compList[k]->texture->SetWidth(auxiliarTexture->width);
+									compList[k]->texture->SetHeight(auxiliarTexture->height);
+								}
+							}
 						}
 					}
 
 					if (compList[j]->type == ComponentType::TEXTURE)
 					{
+
 						ImGui::Text("Texture");
 						ImGui::Text("	Width: %d", compList[j]->texture->GetWidth());
 						ImGui::SameLine();

@@ -8,6 +8,7 @@ typedef unsigned char GLubyte;
 
 struct Texture
 {
+public:
     std::string name = "defaultTex";
     std::string path = "Assets/Textures/";
     uint id = -1;
@@ -19,6 +20,10 @@ struct Texture
 
     int GetWidth() { return width; }
     int GetHeight() { return height; }
+
+    void SetWidth(int width_) { width = width_; }
+    void SetHeight(int height_) { height = height_; }
+
 
     ~Texture()
     {

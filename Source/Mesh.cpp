@@ -212,7 +212,7 @@ void Mesh::SetTexture(Texture* texture)
 	}
 }
 
-void Mesh::SetDefaultTexture()
+void Mesh::SetCheckerBoxTexture()
 {
 
 	GLubyte checkerTex[128][128][4];
@@ -241,7 +241,6 @@ void Mesh::SetDefaultTexture()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 128, 128, 0, GL_RGBA, GL_UNSIGNED_BYTE, checkerTex);
 
 	glBindTexture(GL_TEXTURE_2D, 0);
-
 }
 
 Texture* Mesh::GetTexture()

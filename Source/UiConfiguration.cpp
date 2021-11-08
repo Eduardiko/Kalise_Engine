@@ -84,7 +84,6 @@ update_status UiConfiguration::Update(float dt)
 			app->maxFps = maxFps;
 		}
 
-		/////// Limit framerate counter
 		ImGui::Text("Limit Framerate:");
 		ImGui::SameLine();
 		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 0, 255));
@@ -122,18 +121,22 @@ update_status UiConfiguration::Update(float dt)
 				glDisable(GL_DEPTH_TEST);
 			else
 				glEnable(GL_DEPTH_TEST);
+
 			if (!cull)
 				glDisable(GL_CULL_FACE);
 			else
 				glEnable(GL_CULL_FACE);
+
 			if (!lighting)
 				glDisable(GL_LIGHTING);
 			else
 				glEnable(GL_LIGHTING);
+
 			if (!materialColor)
 				glDisable(GL_COLOR_MATERIAL);
 			else
 				glEnable(GL_COLOR_MATERIAL);
+
 			if (!texture2D)
 				glDisable(GL_TEXTURE_2D);
 			else
@@ -181,7 +184,7 @@ update_status UiConfiguration::Update(float dt)
 	if (ImGui::CollapsingHeader("Hardware"))
 	{
 		ImGui::Checkbox("Active", &activeBox);
-		/////// Limit framerate counter
+
 		SDL_version v;
 		SDL_GetVersion(&v);
 		int major, minor, patch;
@@ -212,10 +215,11 @@ update_status UiConfiguration::Update(float dt)
 		ImGui::Text("Caps:");
 		ImGui::SameLine();
 		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(255, 255, 0, 255));
-		//This needs to be revised better
+
 		bool threeD, altiVec, avx, avx2, mmx, rdtsc, sse, sse2, sse3, sse41, sse42;
 		getCaps(threeD, altiVec, avx, avx2, mmx, rdtsc, sse, sse2, sse3, sse41, sse42);
 		ImGui::Text("%s %s %s %s %s %s", threeD ? "3DNow," : "", altiVec ? "AltiVec," : "", avx ? "AVX," : "", avx2 ? "AVX2," : "", mmx ? "MMX," : "", rdtsc ? "RDTSC," : "");
+		ImGui::Text("%s %s %s %s %s", sse ? "SSE," : "", sse2 ? "SSE2," : "", sse3 ? "SSE3," : "", sse41 ? "SSE41," : "", sse42 ? "SSE42" : "");
 		ImGui::PopStyleColor();
 
 		ImGui::Separator();

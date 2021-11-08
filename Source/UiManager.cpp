@@ -32,7 +32,6 @@ UiManager::~UiManager()
 	{
 		delete windowList[i];
 	}
-	
 }
 
 // Called before render is available
@@ -107,11 +106,8 @@ update_status UiManager::Update(float dt)
 		i++;
 	}
 
-	//MainMenuTest();
-
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) config->active = !config->active;
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) objects->active = !objects->active;
-
 
 	return ret;
 }
@@ -141,13 +137,7 @@ update_status UiManager::PostUpdate(float dt)
 
 	update_status ret = UPDATE_CONTINUE;
 
-
 	return ret;
-}
-
-void UiManager::SetTitle(const char* title)
-{
-
 }
 
 bool UiManager::CleanUp()
@@ -184,28 +174,6 @@ void UiManager::LoadScene(const char* path, const char* name)
 				component->GetMesh()->InitBuffers();
 		}
 	}
-}
-
-void UiManager::MainMenuTest()
-{
-	ImGui::BeginMainMenuBar();
-	if (ImGui::BeginMenu("Help"))
-	{
-		if (ImGui::MenuItem("Gui Demo"))
-			showcase = !showcase;
-
-		if (ImGui::MenuItem("Documentation"))
-			App->RequestBrowser("https://desktop.github.com/");
-
-		if (ImGui::MenuItem("Download Latest")) {}
-
-		if (ImGui::MenuItem("Report a bug")) {}
-
-		if (ImGui::MenuItem("About")) {}
-
-		ImGui::EndMenu();
-	}
-	ImGui::EndMainMenuBar();
 }
 
 void UiManager::AddWindow(UiWindow* win)

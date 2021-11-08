@@ -10,21 +10,16 @@ Application::Application()
 	camera = new ModuleCamera3D(this);
 	scene = new BaseScene(this);
 
-	// The order of calls is very important!
-	// Modules will Init() Start() and Update in this order
-	// They will CleanUp() in reverse order
-
-	// Main Modules
 	AddModule(window);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(ui);
 	AddModule(importer);
 	
-	// Scenes
+
 	AddModule(scene);
 
-	// Renderer last!
+
 	AddModule(renderer3D);
 }
 
@@ -40,9 +35,6 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
-
-	// Call Init() in all modules
-
 	std::vector<Module*>::iterator item = moduleList.begin();
 
 	while (item != moduleList.end() && ret)
@@ -51,9 +43,6 @@ bool Application::Init()
 		item++;
 	}
 
-
-
-	// After all Init calls we call Start() in all modules
 	LOG("Application Start --------------");
 	item = moduleList.begin();
 
@@ -67,14 +56,12 @@ bool Application::Init()
 	return ret;
 }
 
-// ---------------------------------------------
 void Application::PrepareUpdate()
 {
 	frameStart = ms_timer.Read();
 	sTicks = SDL_GetTicks();
 }
 
-// ---------------------------------------------
 void Application::FinishUpdate()
 {
 	int frameEnd = ms_timer.Read();
@@ -93,13 +80,11 @@ void Application::FinishUpdate()
 	currentFps = 1.0f / frameTime;
 }
 
-// Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 	
-	//p2List_item<Module*>* item = moduleList.getFirst();
 	std::vector<Module*>::iterator item = moduleList.begin();
 
 	while(item != moduleList.end() && ret == UPDATE_CONTINUE)

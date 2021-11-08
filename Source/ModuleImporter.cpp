@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "ModuleImporter.h"
 #include "GameObject.h"
-//#include "glew.h"
+
 #include "il.h"
 #include "ilu.h"
 #include "ilut.h"
@@ -40,7 +40,6 @@ bool ModuleImporter::Start()
 bool ModuleImporter::CleanUp()
 {
 
-
 	return true;
 }
 
@@ -50,8 +49,6 @@ std::vector<Mesh*> ModuleImporter::ImportScene(const char* path)
 	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		
-		// Use scene->mNumMeshes to iterate on scene->mMeshes array
 		for (uint i = 0; i < scene->mNumMeshes; i++)
 		{
 			Mesh* mesh = ImportModel(scene->mMeshes[i]);
@@ -82,7 +79,7 @@ Mesh* ModuleImporter::ImportModel(aiMesh* aiMesh)
 		{
 			if (aiMesh->mFaces[j].mNumIndices != 3)
 			{
-				//LOG Missing
+
 			}
 			else
 			{
@@ -130,7 +127,6 @@ Texture* ModuleImporter::LoadTexture(const char* path, const char* name)
 
 	Texture* texture = new Texture();
 
-	// TODO:: Change to ilLoadL
 	if (ilLoadImage(path))
 	{
 		if (ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE))
@@ -143,7 +139,6 @@ Texture* ModuleImporter::LoadTexture(const char* path, const char* name)
 			texture->format = texture->formatUnsigned = ilGetInteger(IL_IMAGE_FORMAT);
 			texture->path = path;
 		}
-
 	}
 
 	return texture;

@@ -7,12 +7,10 @@ UiMainMenu::UiMainMenu(Application* app, bool start_enabled) : UiWindow(app, sta
 	App = app;
 }
 
-// Destructor
 UiMainMenu::~UiMainMenu()
 {
 }
 
-// Called before render is available
 bool UiMainMenu::Start()
 {
 	bool ret = true;
@@ -21,8 +19,6 @@ bool UiMainMenu::Start()
 
 	return ret;
 }
-
-
 
 update_status UiMainMenu::PreUpdate(float dt)
 {
