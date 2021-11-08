@@ -45,6 +45,8 @@ update_status UiObjects::Update(float dt)
 
 	if (ImGui::TreeNode("Game Objects"))
 	{
+		ImGui::Separator();
+
 		for (int i = 0; i < tmpList.size(); i++)
 		{
 			if (ImGui::TreeNode((void*)(intptr_t)i, tmpList[i]->name.c_str(), i))
@@ -58,56 +60,70 @@ update_status UiObjects::Update(float dt)
 							ImGui::SetNextItemOpen(true, ImGuiCond_Once);
 
 						float3 position = compList[j]->transform->GetPos();
-						ImGui::Text(" ");
-						ImGui::Text(" Position    X: %d", (int)position.x);
+						ImGui::Text("Position");
+						ImGui::Text("	X: %d", (int)position.x);
 						ImGui::SameLine();
 						ImGui::Text("Y: %d", (int)position.y);
 						ImGui::SameLine();
 						ImGui::Text("Z: %d", (int)position.z);
 
 						Quat rotation = compList[j]->transform->GetRot();
-						ImGui::Text(" Rotation    X: %d", (int)rotation.x);
+						ImGui::Text("Rotation");
+						ImGui::Text("	X: %d", (int)rotation.x);
 						ImGui::SameLine();
 						ImGui::Text("Y: %d", (int)rotation.y);
 						ImGui::SameLine();
 						ImGui::Text("Z: %d", (int)rotation.z);
 
 						float3 scale = compList[j]->transform->GetScale();
-						ImGui::Text(" Scale       X: %d", (int)scale.x);
+						ImGui::Text("Scale");
+						ImGui::Text("	X: %d", (int)scale.x);
 						ImGui::SameLine();
 						ImGui::Text("Y: %d", (int)scale.y);
 						ImGui::SameLine();
 						ImGui::Text("Z: %d", (int)scale.z);
-
-					}
-					if (compList[j]->type == ComponentType::TEXTURE)
-					{
-						ImGui::Text(" ");
-						ImGui::Text(" Texture     Width: %d", compList[j]->texture->GetWidth());
-						ImGui::SameLine();
-						ImGui::Text("	Height: %d", compList[j]->texture->GetHeight());
-
 					}
 
 					if (compList[j]->type == ComponentType::MESH)
 					{
 						auxiliarTexture = compList[j]->mesh->GetTexture();
-						if (ImGui::Checkbox("CheckerBox:", &compList[j]->mesh->checkerTexture))
+						if (j == 1)
 						{
-							if (compList[j]->mesh->checkerTexture)
+							if (ImGui::Checkbox("Set CheckerBox Texture", &compList[j]->mesh->checkerTexture))
 							{
-								compList[j]->mesh->SetDefaultTexture();
-
-							}
-							else {
-								compList[j]->mesh->SetTexture(auxiliarTexture);
+								if (compList[j]->mesh->checkerTexture)
+								{
+									compList[j]->mesh->SetDefaultTexture();
+									if(compList[j + 1] != nullptr && compList[j + 1]->type == ComponentType::MESH) compList[j + 1]->mesh->checkerTexture = true;
+								}
+								else {
+									compList[j]->mesh->SetTexture(auxiliarTexture);
+									if (compList[j + 1] != nullptr && compList[j + 1]->type == ComponentType::MESH) compList[j + 1]->mesh->checkerTexture = false;
+								}
 							}
 						}
+
+						if (j != 1 && compList[j]->mesh->checkerTexture)
+						{
+							compList[j]->mesh->SetDefaultTexture();
+						}
+						else if (j != 1) 
+						{
+							compList[j]->mesh->SetTexture(auxiliarTexture);
+						}
 					}
-						ImGui::Separator();
+
+					if (compList[j]->type == ComponentType::TEXTURE)
+					{
+						ImGui::Text("Texture");
+						ImGui::Text("	Width: %d", compList[j]->texture->GetWidth());
+						ImGui::SameLine();
+						ImGui::Text("		Height: %d", compList[j]->texture->GetHeight());
+
+					}
+
 				}
-
-
+						ImGui::Separator();
 						ImGui::TreePop();
 			}
 		}

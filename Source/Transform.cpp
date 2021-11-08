@@ -8,9 +8,9 @@ Transform::Transform(bool active)
 
 	rotation = Quat::identity;
 
-	scale.x = 0;
-	scale.y = 0;
-	scale.z = 0;
+	scale.x = 1;
+	scale.y = 1;
+	scale.z = 1;
 
 	lTransform = float4x4::FromTRS(position, rotation, scale);
 	transformMatrix = lTransform;
@@ -42,9 +42,9 @@ Transform::~Transform()
 
 	rotation = Quat::identity;
 
-	scale.x = 0;
-	scale.y = 0;
-	scale.z = 0;
+	scale.x = 1;
+	scale.y = 1;
+	scale.z = 1;
 
 	lTransform.zero;
 	transformMatrix.zero;

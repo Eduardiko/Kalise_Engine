@@ -30,5 +30,7 @@ public:
 public:
 	bool active;
 
+	bool checkerTexture = false;
+
 	bool meshCount = 0;
 };
