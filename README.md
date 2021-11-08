@@ -31,7 +31,7 @@
 
 
 # Panel Options:
-##Top Bar
+## Top Bar
 ### File
  - ESC: Quit application
  - Load - Can load bakerHouse and warrior
